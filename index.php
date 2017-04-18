@@ -84,7 +84,7 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-2 col-xs-12">
+			<div class=col-md-2>
 				<div id="get_category">
 				</div>
 				<!--<div class="nav nav-pills nav-stacked">
@@ -110,7 +110,7 @@
             </div>  
                 
             
-            <div class ="col-md-8">
+            <div class ="col-md-7">
                 <div class="panel panel-info">
                     <div class ="panel-heading">Products</div>
                         <div class="panel-body">

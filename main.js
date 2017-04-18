@@ -38,12 +38,79 @@ $(document).ready(function(){
                         }
                 })
         }
+        
+        $("body").delegate(".category","click",function(event){
 
+		$("#get_product").html("<h3>Loading...</h3>");
+
+		event.preventDefault();
+
+		var cid = $(this).attr('cid');
+
+		
+
+			$.ajax({
+
+			url		:	"action.php",
+
+			method	:	"POST",
+
+			data	:	{get_selected_Category:1,cat_id:cid},
+
+			success	:	function(data){
+
+				$("#get_product").html(data);
+
+				if($("body").width() < 480){
+
+					$("body").scrollTop(683);
+
+	
+        
+        		}
+
+			}
+
+		})
+
+	})
+
+        $("body").delegate(".brand","click",function(event){
+
+		event.preventDefault();
+
+		var bid = $(this).attr('bid');
+
+		
+
+			$.ajax({
+
+			url		:	"action.php",
+
+			method	:	"POST",
+
+			data	:{selectBrand:1,brand_id:bid},
+
+			success	:	function(data){
+
+				$("#get_product").html(data);
+
+				if($("body").width() < 480){
+
+					$("body").scrollTop(683);
+
+	
+        
+        		}
+
+			}
+
+		})
+
+	})
         
 })
-
-
-                    
+            
                 
                 
 
