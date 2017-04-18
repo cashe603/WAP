@@ -114,6 +114,9 @@
                 <div class="panel panel-info">
                     <div class ="panel-heading">Products</div>
                         <div class="panel-body">
+                            <div id="get_product">
+                            </div>
+                            <!--
                             <div class="col-md-4">
                                 <div class ="panel panel-info">
                                     <div class ="panel-heading">Samsung Galaxy S8</div>
@@ -123,10 +126,10 @@
                                         <button style ="float:right;" class="btn btn-danger btn-xs">Add to Cart</button>
 
                                 </div>
-                            </div>
+                            </div> -->
                     </div>
                     <div class ="panel-footer"><strong>&copy;2017 Farhan The Bossman</strong></div>
-                </div>
+                </div> 
             </div>    
             <div class ="col-md-1"></div>
             </div>
