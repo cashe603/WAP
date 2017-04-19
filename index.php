@@ -30,8 +30,8 @@
       <ul class="nav navbar-nav">
             <li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
             <li><a href="prodcts.php"><span class="glyphicon glyphicon-modal-window"></span>Products</a></li>
-            <li style="width:300px;left:10px;top:10px"><input type ="text" class="form-control" id="search" placeholder="Search" required></li>
-            <li style="top:10px;left:20px;"><input type ="submit" class="btn btn-primary" id="search_btn" required></li>
+            <li style="width:300px;left:10px;top:10px"><input type ="text" class="form-control" id="search" placeholder="Tap/Click to Search" required></li>
+            <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
         
         </ul>
         

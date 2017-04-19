@@ -169,9 +169,50 @@ if ($stmt = mysqli_prepare($con, $pro_query)) {
                             }
 
             }
+
+
+if(isset($_POST["search"])){
+    $pkeywords = $_POST['pkeywords'];
+    $search_query = "SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_keywords LIKE '%$pkeywords%'";
+
+    
+    $stmt = $con->prepare($search_query);
+    $stmt->bind_param("iiisisss", $pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
+    $stmt->execute();
+    $stmt->store_result();
+    
+    
+    
+    /* bind result variables */
+    mysqli_stmt_bind_result($stmt, $pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
+
+    if($stmt->affected_rows > 0){
+    
+    while (mysqli_stmt_fetch($stmt)) {
+
+                            echo"
+                            <div class='col-md-6'>
+                                <div class ='panel panel-info'>
+                                    <div class ='panel-heading'>$ptitle</div>
+                                    <div class ='panel-body'></div>
+                                        <img src='product_images/$pimage' height='300' width='300' />
+                                    </div>
+                                    <div class ='panel-heading'></div>$ $pprice
+                                        <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
+
+                                </div>
+                            </div>";    
+                            
+                            }
+
+            }
             
-            
+    else{
+        echo"No Such Product";
         
+        }
+            
+       } 
 
             
             

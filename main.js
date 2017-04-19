@@ -108,8 +108,50 @@ $(document).ready(function(){
 		})
 
 	})
+        $("#search_btn").click(function(){
+            var pkeywords =$("#search").val();
+            if(pkeywords != "") {
+                
+			$.ajax({
+
+			url		:	"action.php",
+
+			method	:	"POST",
+
+			data	:{search:1,pkeywords:pkeywords},
+
+			success	:	function(data){
+
+				$("#get_product").html(data);
+
+				if($("body").width() < 480){
+
+					$("body").scrollTop(683);
+
+	
         
+        		}
+
+			}
+
+		})
+        
+                
+                
+        }
+        
+        
+        else {
+            alert("Input required");
+        }
+            
+        })
+        
+        
+    
 })
+
+
             
                 
                 
