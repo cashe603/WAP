@@ -86,7 +86,8 @@ if ($stmt = mysqli_prepare($con, $product_query)) {
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='200' width='200' />
+                                        <img src='product_images/$pimage' height='160' width='180' />
+                                        <p>$pdesc</p>
                                     </div>    
                                     <div class ='panel-heading'></div>$ $pprice
                                         <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
@@ -117,12 +118,13 @@ if ($stmt = mysqli_prepare($con, $pro_query)) {
     while (mysqli_stmt_fetch($stmt)) {
 
                             echo"
-                            <div class='col-md-4'>
+                            <div class='col-md-6'>
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='200' width='200' />
-                                    </div>    
+                                        <img src='product_images/$pimage' height='250' width='250' />
+                                        </div>
+                                        <div class = 'well well-sm'>$pdesc</p>
                                     <div class ='panel-heading'></div>$ $pprice
                                         <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
 
@@ -151,12 +153,13 @@ if ($stmt = mysqli_prepare($con, $pro_query)) {
     while (mysqli_stmt_fetch($stmt)) {
 
                             echo"
-                            <div class='col-md-4'>
+                            <div class='col-md-6'>
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='200' width='200' />
-                                    </div>    
+                                        <img src='product_images/$pimage' height='250' width='250' />
+                                    </div>
+                                    <div class = 'well well-sm'>$pdesc</div>
                                     <div class ='panel-heading'></div>$ $pprice
                                         <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
 
