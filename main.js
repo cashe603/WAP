@@ -147,6 +147,12 @@ $(document).ready(function(){
             
         })
         
+        $(document).keypress(function(e) {
+    		if(e.which == 13) {
+        alert('Tap or Click To Search.Enter is Disabled');
+    }
+})
+        
         
     
 })

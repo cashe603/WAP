@@ -6,11 +6,13 @@
   <meta charset ="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
   <title>Bossman's Gadget Store 2.0</title>
-  <link rel = "stylesheet" href = "css/bootstrap.css"/>
+  <link rel = "stylesheet" href = "css/bootstrap.min.css"/>
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     
     
   </head>
@@ -24,12 +26,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-      <a class="navbar-brand" href="#">Bossman's Gadgets</a>
+      <a class="navbar-brand" href="index.php">Bossman's Gadgets</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
             <li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-            <li><a href="prodcts.php"><span class="glyphicon glyphicon-modal-window"></span>Products</a></li>
+            
             <li style="width:300px;left:10px;top:10px"><input type ="text" class="form-control" id="search" placeholder="Tap/Click to Search" required></li>
             <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
         
@@ -114,7 +116,7 @@
                 <div class="panel panel-info">
                     <div class ="panel-heading">Products</div>
                         <div class="panel-body">
-                            <div id="get_product">
+                            <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
                             </div>
                             <!--
                             <div class="col-md-4">
