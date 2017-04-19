@@ -150,11 +150,32 @@ $(document).ready(function(){
         $(document).keypress(function(e) {
     		if(e.which == 13) {
         alert('Tap or Click To Search.Enter is Disabled');
-    }
-})
+        }
+    })
         
+        $("#signup_button").click(function(){
+            
+            $.ajax({
+
+			url	:"register.php",
+
+			method	:"POST",
+
+			data	:$("form").serialize(),
+
+			success	:	function(data){
+
+                            $("#signup_msg").html(data);
+
+					
+                                        
+                        
+                    }
+                            
+            })
+
+        })
         
-    
 })
 
 
