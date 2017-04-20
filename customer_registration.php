@@ -78,15 +78,15 @@
                             
                             <div class = "row">
                                 <div class ="col-md-8">
-                                    <label for="cuntry">Country</label>
-                                    <select  class="form-control" id="country">
-           					<option>Select Your Current Country</option>
-           					<option>Estonia</option>
-           					<option>Finland</option>
-           					<option>Lithuania</option>
-           					<option>Latvia</option>
-           					<option>Poland</option>
-           					<option>Norway</option> required/></td>
+                                    <label for="country">Country</label>
+                                    <select  class="form-control" name="select_country">
+           					<option value = "0">Select Your Current Country</option>
+           					<option value = "Estonia">Estonia</option>
+           					<option value = "Finland">Finland</option>
+           					<option value= "Lithuania">Lithuania</option>
+           					<option value = "Latvia">Latvia</option>
+           					<option value = "Poland">Poland</option>
+           					<option value = "Norway">Norway</option> required/></td>
            				</select>
                                 </div>        
                             </div>
