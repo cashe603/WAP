@@ -68,24 +68,46 @@ $number    = preg_match('@[0-9]@', $password);
             
 	}
 	
-    //existing email address in our database
-	$sql = "SELECT customer_id FROM customers WHERE customer_email = '$email' LIMIT 1" ;
+  $sql = "SELECT customer_id FROM customers WHERE customer_email = '$email' LIMIT 1" ;
 	$stmt = $con->prepare($sql);
 	$stmt->execute();
-        $stmt->store_result();
+        $stmt->store_result();
 	
-	if($stmt->affected_rows > 0){
-		echo "
-			<div class='alert alert-danger'>
-				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>Email Address is Registered. Try Another email address</b>
-			</div>
-		";
-		exit();
+	if($stmt->num_rows > 0){
+		echo "
+			<div class='alert alert-danger'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>Email Address is Registered. Try Another email address</b>
+			</div>
+		";
+		exit();
 	
-
 }
 
 
+	else {
+		$password = md5($password);
+		$sql = "INSERT INTO `customers` 
+		(`customer_id`, `customer_name`, `customer_email`, `customer_pass`, 
+		`customer_country`, `customer_city`, `customer_address`, `customer_zipcode`) 
+		VALUES (NULL, '$c_name', '$email', '$password', '$country', '$city', '$address', '$zip')";
+		if ($stmt = mysqli_prepare($con, $sql)) {
+                mysqli_stmt_execute($stmt);
+                    
+                    echo '<script language="javascript">';
+                    echo 'alert("Registation Successful")';
+                    echo '</script>';
+		
+			echo "
+				<div class='alert alert-success'>
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>You are Registered successfully..!</b>
+				</div>
+			";
+		
+            }
+        }    
+	
+	
 	
 ?>
