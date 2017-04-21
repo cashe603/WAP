@@ -73,7 +73,7 @@
                     </div>   
                 </ul>
             </li>    
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+            <li><a href="customer_registration.php"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
             <li><a href="#"><span class= "glyphicon glyphicon-phone-alt"></span>Contact Me</a></li>
         </ul>
         
@@ -112,7 +112,7 @@
             </div>  
                 
             
-            <div class ="col-md-7">
+            <div class ="col-md-9">
                 <div class="panel panel-info">
                     <div class ="panel-heading">Products</div>
                         <div class="panel-body">
