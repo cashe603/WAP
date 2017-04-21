@@ -85,25 +85,39 @@ $number    = preg_match('@[0-9]@', $password);
 }
 
 
-	else {
-		$password = md5($password);
-		$sql = "INSERT INTO `customers` 
-		(`customer_id`, `customer_name`, `customer_email`, `customer_pass`, 
-		`customer_country`, `customer_city`, `customer_address`, `customer_zipcode`) 
-		VALUES (NULL, '$c_name', '$email', '$password', '$country', '$city', '$address', '$zip')";
+	else {
+
+		$password = md5($password);
+
+		$sql = "INSERT INTO `customers` 
+
+		(`customer_id`, `customer_name`, `customer_email`, `customer_pass`, 
+
+		`customer_country`, `customer_city`, `customer_address`, `customer_zipcode`) 
+
+		VALUES (NULL, '$c_name', '$email', 
+'$password', '$country', '$city', '$address', '$zip')";
+
 		if ($stmt = mysqli_prepare($con, $sql)) {
                 mysqli_stmt_execute($stmt);
                     
                     echo '<script language="javascript">';
                     echo 'alert("Registation Successful")';
                     echo '</script>';
-		
-			echo "
-				<div class='alert alert-success'>
-					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>You are Registered successfully..!</b>
-				</div>
-			";
+		
+
+			echo "
+
+				<div class='alert alert-success'>
+
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+
+				<b>You are Registered successfully..!</b>
+
+				</div>
+
+			";
+
 		
             }
         }    

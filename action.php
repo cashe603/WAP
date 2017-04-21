@@ -171,17 +171,13 @@ if(isset($_POST["search"])){
             }
             
     else{
-        echo '<script language="javascript">';
-                    echo 'alert("No Such Product Exists")';
-                    echo '</script>';
-		
-        header("Location: index.php"); /* Redirect browser */
-        exit();
+        echo '<script>window.alert("No Such Product"); window.location = "index.php";</script>';
         
         }
             
        }
    }    
+
 
             
             
