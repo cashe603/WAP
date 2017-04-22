@@ -15,6 +15,10 @@ $emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-])*@[a-z0-9]+(\.[a-z]{2,4})/";
 $uppercase = preg_match('@[A-Z]@', $password);
 $lowercase = preg_match('@[a-z]@', $password);
 $number    = preg_match('@[0-9]@', $password);
+$city_preg = "/^[a-zA-Z ]+$/";
+$address_preg = "/[A-Za-z0-9]+/";
+$zip_preg= "/^\d{5}([\-]?\d{4})?$/";
+
 
 
 
@@ -57,16 +61,39 @@ $number    = preg_match('@[0-9]@', $password);
     }         
             
 	
-    if(empty($city) ||empty($address) ||empty($zip)) {
-    echo "
+    if(!preg_match($city_preg,$city)) {
+        echo "
 			<div class='alert alert-warning'>
 				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>Enter your full address including zip/postal code</b>
+				<b>City Mismatch!</b>
 			</div>
 		";
 		exit();
             
 	}
+    
+    if(!preg_match($address_preg,$address)) {
+        echo "
+			<div class='alert alert-warning'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>Address cannot contain special chars</b>
+			</div>
+		";
+		exit();
+            
+	}
+    if(!preg_match($zip_preg,$zip)) {
+        echo "
+			<div class='alert alert-warning'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>Zip code Mismatch</b>
+			</div>
+		";
+		exit();
+            
+	}
+	
+
 	
 $sql = "SELECT customer_id FROM customers WHERE customer_email = ? LIMIT 1" ;
 	$stmt = $con->prepare($sql);
