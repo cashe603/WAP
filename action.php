@@ -3,10 +3,14 @@ session_start();
 include "config.php";
 
 if(isset($_POST["category"])){
-    $query = "SELECT cat_id, cat_title FROM categories";
+    $query = "SELECT * FROM categories WHERE 'cat_id'=? AND 'cat_title'=?";
 
     $stmt =$con->prepare($query);
+    
+    $cid = "cat_id";
+    $cname= "cat_title";
 
+    $stmt->bind_param("is", $cid,$cname);
     $stmt->execute();
     $stmt->bind_result($cid, $cname);
     
@@ -29,9 +33,12 @@ if(isset($_POST["category"])){
     } 
 
 if(isset($_POST["brand"])){
-    if ($stmt = $con->prepare("SELECT brand_id, brand_title FROM brands")){
-    /* execute statement */
+    if ($stmt = $con->prepare("SELECT * FROM brands where 'brand_id'=? AND 'brand_title'=?")){
     
+    $bid = "brand_id";
+    $bname= "brand_title";
+    
+    $stmt->bind_param("is", $bid,$bname);
     $stmt->execute();
     $stmt->bind_result($bid, $bname);
     
@@ -50,13 +57,24 @@ if(isset($_POST["brand"])){
 		echo "</ul>";
 
     
-    } $stmt->close();
+    } 
 }
 
 
 if(isset($_POST["getProduct"])){
-    if ($stmt = $con->prepare ("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords, product_subdesc FROM products ORDER BY RAND() LIMIT 0,6")){
+    if ($stmt = $con->prepare ("SELECT * FROM products WHERE 'product_id'=? AND 'product_cat'=? AND 'product_brand'=? AND 'product_title'=? AND 'product_price'=? AND 'product_desc'=? AND 'product_image'=? AND 'product_keywords'=? AND 'product_subdesc'=? ORDER BY RAND() LIMIT 0,6")){
     
+    $pid= "product_id";
+    $pcat= "product_cat";
+    $pbrand = "product_brand";
+    $ptitle = "product_title";
+    $pprice = "product_price";
+    $pdesc = "product_desc";
+    $pimage = "product_image";
+    $pkeywords = "product_keywords";
+    $psubdesc = "product_subdesc";
+    
+    $stmt->bind_param("iiisissss", $pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords, $psubdesc);
     $stmt->execute();
     $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords, $psubdesc);
 
@@ -144,14 +162,13 @@ if(isset($_POST["search"])){
     $pkeywords = $_POST['pkeywords'];
     if ($stmt = $con->prepare("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_keywords LIKE '%$pkeywords%'")){
 
-    $stmt->bind_param("iiisisss", $pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
     $stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
 
     if($stmt->affected_rows > 0){
     
-        while (mysqli_stmt_fetch($stmt)) {
+        while ($stmt->fetch()) {
 
                             echo"
                             <div class='col-md-6'>
@@ -176,10 +193,30 @@ if(isset($_POST["search"])){
         }
             
        }
-   }    
+   }
+   
+ if(isset($_POST["userLogin"])){
+	
+	$email = ($_POST["userEmail"]);
+	$password =($_POST["userPassword"]);
+	$stmt = $con->prepare("SELECT * FROM customers WHERE 'customer_email' =? AND 'customer_password' =?");
+	$stmt->bind_param("ss", $email, $password);
+	$stmt->execute();
+        
+        $stmt->store_result();
+        $stmt->bind_result($email, $password);
+        if($stmt->affected_rows == 1){
+            while ($stmt->fetch()) {
+                $_SESSION["user"] = $row["customer_id"];
+                $_SESSION["email"] = $row["customer_email"];
+        
+                }   echo "logged in";
+  
+    } else {
+        echo "Email / password combination incorrect";
+}
 
-
-            
-            
+}
+    
 
 ?>

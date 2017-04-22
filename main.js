@@ -176,6 +176,22 @@ $(document).ready(function(){
 
         })
         
+        $("#login").click(function(event){
+		event.preventDefault();
+		var email = $("#email").val();
+		var pass = $("#password").val();
+		$.ajax({
+			url	:"action.php",
+			method:	"POST",
+			data	:	{userLogin:1,userEmail:email,userPassword:pass},
+			success	:function(data){
+                            alert(data);
+				
+                }
+                            
+            })
+
+        })
 })
 
 
