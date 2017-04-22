@@ -6,11 +6,11 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $country =$_POST['select_country'];
 $city = $_POST['city'];
-$address = $_POST['address'];
+$address =$_POST['address'];
 $zip = $_POST['zip'];
 
 
-$name = "/^[a-zA-Z ]+$/";
+$nameValidation = "/^[a-zA-Z ]+$/";
 $emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-])*@[a-z0-9]+(\.[a-z]{2,4})/";
 $uppercase = preg_match('@[A-Z]@', $password);
 $lowercase = preg_match('@[a-z]@', $password);
@@ -18,7 +18,7 @@ $number    = preg_match('@[0-9]@', $password);
 
 
 
-    if(!preg_match($name,$c_name)){
+    if(!preg_match($nameValidation,$c_name)){
 		echo "
 			<div class='alert alert-warning'>
 				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -68,12 +68,21 @@ $number    = preg_match('@[0-9]@', $password);
             
 	}
 	
-  $sql = "SELECT customer_id FROM customers WHERE customer_email = '$email' LIMIT 1" ;
+$sql = "SELECT customer_id FROM customers WHERE customer_email = ? LIMIT 1" ;
 	$stmt = $con->prepare($sql);
-	$stmt->execute();
-        $stmt->store_result();
+	$stmt->bind_param("s", $email);
+	$id = "customer_id";
 	
+	$stmt->execute();
+        
+        $stmt->store_result();
+
 	if($stmt->num_rows > 0){
+		echo '<script language="javascript">';
+    echo 'window.alert("Email Address Already exists")';
+    echo '</script>';
+		
+		
 		echo "
 			<div class='alert alert-danger'>
 				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -81,26 +90,27 @@ $number    = preg_match('@[0-9]@', $password);
 			</div>
 		";
 		exit();
-	
-}
+        }
+
 
 
 	else {
 
-		$password = md5($password);
-
+		
 		$sql = "INSERT INTO `customers` 
 
 		(`customer_id`, `customer_name`, `customer_email`, `customer_pass`, 
 
 		`customer_country`, `customer_city`, `customer_address`, `customer_zipcode`) 
 
-		VALUES (NULL, '$c_name', '$email', 
-'$password', '$country', '$city', '$address', '$zip')";
+		VALUES (?, ? , ? , ?, ?, ?, ?, ?)";
 
-		if ($stmt = mysqli_prepare($con, $sql)) {
-                mysqli_stmt_execute($stmt);
+		if ($stmt= $con->prepare($sql)) {
+                    $stmt->bind_param("ssssssss",$var1,$c_name,$email,$password,$country,$city,$address,$zip);
+                    $password = sha1($_POST["customer_pass"]);
+                    $var1 = null;
                     
+                    $stmt->execute();
                     echo '<script language="javascript">';
                     echo 'alert("Registation Successful")';
                     echo '</script>';
@@ -117,11 +127,9 @@ $number    = preg_match('@[0-9]@', $password);
 				</div>
 
 			";
-
-		
-            }
+            
         }    
-	
+    }	
 	
 	
 ?>
