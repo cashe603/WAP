@@ -100,20 +100,19 @@ if(isset($_POST["getProduct"])){
             
 
 if(isset($_POST["get_selected_Category"])){
+    if ($stmt=$con->prepare ("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_cat=?")){
+    $stmt->bind_param("i", $cid); 
     $cid = $_POST['cat_id'];
-    if ($stmt = $con->prepare ("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_cat='$cid'")){
-    
-    $stmt->execute();
+
+    $stmt->execute(); 
     $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
-
     while ($stmt->fetch()) {
-
                             echo"
                             <div class='col-md-6'>
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='250' width='250' />
+                                        <img src='product_images/$pimage' height='300' width='320' />
                                         </div>
                                         <div class = 'well well-sm'>$pdesc</p>
                                     <div class ='panel-heading'></div>$ $pprice
@@ -129,8 +128,12 @@ if(isset($_POST["get_selected_Category"])){
     }        
             
 if(isset($_POST["selectBrand"])){
+    
+    if ($stmt = $con->prepare ("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_brand=?")){
+    
+    $stmt->bind_param("i", $bid); 
     $bid = $_POST['brand_id'];
-    if ($stmt = $con->prepare ("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_cat='$bid'")){
+
     
     $stmt->execute();
     $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
@@ -159,7 +162,7 @@ if(isset($_POST["selectBrand"])){
 
 
 if(isset($_POST["search"])){
-    $pkeywords = $_POST['pkeywords'];
+    $pkeywords = $con->real_escape_string($_POST['pkeywords']);
     if ($stmt = $con->prepare("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_keywords LIKE '%$pkeywords%'")){
 
     $stmt->execute();
@@ -175,7 +178,7 @@ if(isset($_POST["search"])){
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='300' width='300' />
+                                        <img src='product_images/$pimage' height='350' width='400' />
                                     </div>
                                     <div class ='panel-heading'></div>$ $pprice
                                         <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
@@ -195,28 +198,6 @@ if(isset($_POST["search"])){
        }
    }
    
- if(isset($_POST["userLogin"])){
-	
-	$email = ($_POST["userEmail"]);
-	$password =($_POST["userPassword"]);
-	$stmt = $con->prepare("SELECT * FROM customers WHERE 'customer_email' =? AND 'customer_password' =?");
-	$stmt->bind_param("ss", $email, $password);
-	$stmt->execute();
-        
-        $stmt->store_result();
-        $stmt->bind_result($email, $password);
-        if($stmt->affected_rows == 1){
-            while ($stmt->fetch()) {
-                $_SESSION["user"] = $row["customer_id"];
-                $_SESSION["email"] = $row["customer_email"];
-        
-                }   echo "logged in";
-  
-    } else {
-        echo "Email / password combination incorrect";
-}
-
-}
     
 
 ?>

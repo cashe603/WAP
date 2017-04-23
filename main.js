@@ -2,6 +2,7 @@ $(document).ready(function(){
 	cat();
 	brand();
 	product();
+        login();
 	function cat(){
 		$.ajax({
 			url	:	"action.php",
@@ -176,27 +177,36 @@ $(document).ready(function(){
 
         })
         
-        $("#login").click(function(event){
-		event.preventDefault();
-		var email = $("#email").val();
-		var pass = $("#password").val();
-		$.ajax({
-			url	:"action.php",
-			method:	"POST",
-			data	:	{userLogin:1,userEmail:email,userPassword:pass},
-			success	:function(data){
-                            alert(data);
-				
-                }
-                            
-            })
-
+    function login(){
+        $(document).ready(function(){  
+      $('#login_button').click(function(event){
+          event.preventDefault();
+           var username = $('#username').val();  
+           var password = $('#password').val();  
+           if(username != '' && password != '')  
+           {  
+                $.ajax({  
+                     url:"login.php",  
+                     method:"POST",  
+                     data:{username:username, password:password},  
+                     success:function(data){  
+                          if(data == 'No')  
+                          {  
+                               alert("Wrong Data");  
+                          }  
+                          else  
+                          {  
+                               window.location.replace("profile.php");
+                              
+                          }  
+                     }  
+                })  
+           }  
+           else  
+           {  
+                alert("Both Fields are required");  
+           }  
+      })  
         })
+}
 })
-
-
-            
-                
-                
-
-        

@@ -56,15 +56,8 @@
                             <form method = "post">
                             <div class= "row">
                                 <div class ="col-md-8">
-                                    <label for="c_name">Name</label>
-                                    <input type="text" id="c_name" name="c_name" class="form-control">
-                                </div>        
-                            </div>
-                            
-                            <div class = "row">
-                                <div class ="col-md-8">
-                                    <label for="email">Email Adress</label>
-                                    <input type="text" id="email" name="email" class="form-control">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" name="username" class="form-control">
                                 </div>        
                             </div>
                             
@@ -75,11 +68,24 @@
                                 </div>        
                             </div>
                             
+                            <div class = "row">
+                                <div class ="col-md-8">
+                                    <label for="email">Email Adress</label>
+                                    <input type="text" id="email" name="email" class="form-control">
+                                </div>        
+                            </div>
+                            
+                            <div class= "row">
+                                <div class ="col-md-8">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" class="form-control">
+                                </div>        
+                            </div>
                             
                             <div class = "row">
                                 <div class ="col-md-8">
                                     <label for="country">Country</label>
-                                    <select  class="form-control" name="select_country">
+                                    <select  class="form-control" name="country">
            					<option value = "0">Select Your Current Country</option>
            					<option value = "Estonia">Estonia</option>
            					<option value = "Finland">Finland</option>

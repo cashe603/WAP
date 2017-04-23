@@ -1,45 +1,47 @@
 <?php
 include("config.php");
+//`id`, `username`, `password`, `email`, `name`, `country`, `city`, `address`, `zip`
 
-$c_name = $_POST['c_name'];
-$email = $_POST['email'];
+$username = $_POST['username'];
 $password = $_POST['password'];
-$country =$_POST['select_country'];
+$email = $_POST['email'];
+$name = $_POST['name'];
+$country =$_POST['country'];
 $city = $_POST['city'];
 $address =$_POST['address'];
 $zip = $_POST['zip'];
 
 
-$nameValidation = "/^[a-zA-Z ]+$/";
+$usernameValidation = "/^[a-z0-9_-]{3,15}$/";
+
 $emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-])*@[a-z0-9]+(\.[a-z]{2,4})/";
+
+$nameValidation = "/^[a-zA-Z ]+$/";
+
 $uppercase = preg_match('@[A-Z]@', $password);
 $lowercase = preg_match('@[a-z]@', $password);
 $number    = preg_match('@[0-9]@', $password);
+
 $city_preg = "/^[a-zA-Z ]+$/";
+
 $address_preg = "/[A-Za-z0-9]+/";
+
 $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 
 
+//validating username
 
-
-    if(!preg_match($nameValidation,$c_name)){
+    if(!preg_match($usernameValidation,$username)){
 		echo "
 			<div class='alert alert-warning'>
 				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>Name is Invalid..!</b>
+				<b>Username is Invalid..Between 3 to 15 characters, uppercase is not allowed!</b>
 			</div>
 		";
 		exit();
 	}
-    if(!preg_match($emailValidation,$email)){
-		echo "
-			<div class='alert alert-warning'>
-				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>$email is not a valid email address..!</b>
-			</div>
-		";
-		exit();
-	}
+	
+//validating password
 
     if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
 		echo "
@@ -49,8 +51,36 @@ $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 			</div>
 		";
 		exit();
+	}	
+	
+//validating email
+
+    if(!preg_match($emailValidation,$email)){
+		echo "
+			<div class='alert alert-warning'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>$email is not a valid email address..!</b>
+			</div>
+		";
+		exit();
 	}
-    if(isset($_POST['select_country']) && $_POST['select_country'] == '0') {  
+//validating name
+
+if(!preg_match($nameValidation,$name)){
+		echo "
+			<div class='alert alert-warning'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>Name is Invalid..!</b>
+			</div>
+		";
+		exit();
+	}
+
+
+
+//country validation 
+
+    if(isset($_POST['country']) && $_POST['country'] == '0') {  
     echo "
 			<div class='alert alert-warning'>
 				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -60,7 +90,8 @@ $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 		exit(); 
     }         
             
-	
+//city validation
+            
     if(!preg_match($city_preg,$city)) {
         echo "
 			<div class='alert alert-warning'>
@@ -71,6 +102,8 @@ $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 		exit();
             
 	}
+	
+//address validation	
     
     if(!preg_match($address_preg,$address)) {
         echo "
@@ -82,6 +115,9 @@ $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 		exit();
             
 	}
+	
+//zip code verificiation
+
     if(!preg_match($zip_preg,$zip)) {
         echo "
 			<div class='alert alert-warning'>
@@ -95,16 +131,16 @@ $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 	
 
 	
-$sql = "SELECT customer_id FROM customers WHERE customer_email = ? LIMIT 1" ;
+$sql = "SELECT id FROM users WHERE email = ? LIMIT 1" ;
 	$stmt = $con->prepare($sql);
 	$stmt->bind_param("s", $email);
-	$id = "customer_id";
+	$id = "id";
 	
 	$stmt->execute();
         
         $stmt->store_result();
 
-	if($stmt->num_rows > 0){
+if($stmt->num_rows > 0){
 		echo '<script language="javascript">';
     echo 'window.alert("Email Address Already exists")';
     echo '</script>';
@@ -121,20 +157,14 @@ $sql = "SELECT customer_id FROM customers WHERE customer_email = ? LIMIT 1" ;
 
 
 
-	else {
+else {
 
 		
-		$sql = "INSERT INTO `customers` 
-
-		(`customer_id`, `customer_name`, `customer_email`, `customer_pass`, 
-
-		`customer_country`, `customer_city`, `customer_address`, `customer_zipcode`) 
-
-		VALUES (?, ? , ? , ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `country`, `city`, `address`, `zip`) VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?)";
 
 		if ($stmt= $con->prepare($sql)) {
-                    $stmt->bind_param("ssssssss",$var1,$c_name,$email,$password,$country,$city,$address,$zip);
-                    $password = sha1($_POST["customer_pass"]);
+                    $stmt->bind_param("issssssss",$var1, $username, $password, $email, $name, $country, $city, $address, $zip);
+                    
                     $var1 = null;
                     
                     $stmt->execute();

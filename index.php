@@ -13,6 +13,17 @@
   <script src = "main.js?ts=<?=time()?>&quot;"></script>
   
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <style>
+
+			@media screen and (max-width:720px){
+
+				#search{width:80%;}
+
+				#search_btn{width:30%;float:right;margin-top:-32px;margin-right:10px;}
+
+			}
+
+    </style>
     
     
   </head>
@@ -61,12 +72,13 @@
                         <div class ="panel panel-primary">
                             <div class="panel-heading">Sign In</div>
                             <div class="panel-heading">
-                                <label for="email">E-mail Address</label>
-                                <input type ="email" class ="form-control" id="email" required/>
+                                <label for="email">Username</label>
+                                <input type ="email" class ="form-control" id="username" placeholder="Enter your username"/>
                                 <label for="email">Password</label>
-                                <input type ="password" class ="form-control" id="password" required/>
+                                <input type ="password" class ="form-control" id="password" placeholder="Enter your password"/>
                                 <p><br/></p>
-                                <a href="#" style="color:white; list-style:none;">Forgotten Password</a><input type="submit" class="btn btn-success" style="float:right;" id="login" value="Login">
+                                <button type="button" name="login_button" id="login_button" class="btn btn-warning">Login</button> 
+                                <a href="#" style="color:white; list-style:none;">Forgotten Password</a>
                             </div>
                             <div class="panel-footer" id="e_msg"></div>
                         </div>    
@@ -74,8 +86,7 @@
                 </ul>
             </li>    
             <li><a href="customer_registration.php"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-            <li><a href="#"><span class= "glyphicon glyphicon-phone-alt"></span>Contact Me</a></li>
-        </ul>
+            </ul>
         
       </div>  
     </div>
