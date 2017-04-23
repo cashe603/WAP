@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION["uid"])){
+    header("location:index.php");
+}
+
 ?>
 
 <DOCTYPE HTML!>
@@ -72,7 +76,7 @@ session_start();
             </li>    
                 
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php 
-            echo "Hi !,".$_SESSION["username"]. " Click for Settings";?></a>
+            echo "Hi !,".$_SESSION["name"]. " Click for Settings";?></a>
                 <ul class="dropdown-menu">
                     <li><a href="cart.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
                             <li class="divider"></li>
