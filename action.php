@@ -224,9 +224,12 @@ if(isset($_POST["addProduct"])){
                 //problematic bit
                 
                 
-                else {
-		$sql = "SELECT * FROM products WHERE product_id = ?";
-			$stmt = $con->prepare($sql);
+                else {
+
+		$sql = "SELECT * FROM products WHERE product_id = ?";
+
+			$stmt = $con->prepare($sql);
+
 			$stmt->bind_param("i", $p_id);
 			$stmt->execute();
 			
@@ -237,14 +240,24 @@ if(isset($_POST["addProduct"])){
 
 			while ($row = $result->fetch_assoc()) {
             
-			        $id = $row["product_id"];
-				$pro_name = $row["product_title"];
-				$pro_image = $row["product_image"];
+			        $id = $row["product_id"];
+
+				$pro_name = $row["product_title"];
+
+				$pro_image = $row["product_image"];
+
 				$pro_price = $row["product_price"];    
                     
-                                $sql = "INSERT INTO `cart` (`p_id`, `pro_id`, `ip_add`, `user_id`, `product_title`, `product_image`, `qty`, `product_price`, `total_amt`) VALUES    (NULL, '$p_id', '0', '$user_id', '$pro_name', '$pro_image', '1', '$pro_price', '$pro_price')";
+                                $sql = "INSERT INTO `cart` (`p_id`, `pro_id`, `ip_add`, `user_id`, `product_title`, `product_image`, `qty`, `product_price`, `total_amt`) VALUES    (?,?,?,?,?,?,?,?,?)";
+                                
                                 
                                 $stmt = $con->prepare($sql);
+                                $var1 = NULL;
+                                $var2 = 0;
+                                $qty = 1;
+                                $total_amt = $pro_price;
+                            
+                                $stmt->bind_param("iiiissiii", $var1, $p_id, $var2, $user_id, $pro_name, $pro_image, $qty, $pro_price, $total_amt);
                                 
                                 if($stmt->execute()){
 				echo "Product Is added to Cart!";
