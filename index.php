@@ -1,13 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["uid"])){
-    header("location:profile.php");
-}
-
-?>
-
-
-
+if(isset($_SESSION["uid"])){header("location:profile.php");}?>
 <DOCTYPE HTML!>
 
 <html>
@@ -131,15 +124,24 @@ if(isset($_SESSION["uid"])){
                     <li><a href="#">Bethesda</a></li>
                 </div>
                 -->
-            </div>
-			<div class="col-md-8">
-				<div class="row">
-					<div class="col-md-12" id="product_msg">
-					</div>
-				</div>
-				<div class="panel panel-info">
-					<div class="panel-heading">Products</div>
-					<div class="panel-body">
+            </div>
+
+			<div class="col-md-8">
+
+				<div class="row">
+
+					<div class="col-md-12" id="product_msg">
+
+					</div>
+
+				</div>
+
+				<div class="panel panel-info">
+
+					<div class="panel-heading">Products</div>
+
+					<div class="panel-body">
+
 			                <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
                             </div>
                             <!--

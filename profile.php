@@ -1,10 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"])){
-    header("location:index.php");
-}
-
-?>
+if(!isset($_SESSION["uid"])){header("location:index.php");}?>
 
 <DOCTYPE HTML!>
 
@@ -58,25 +54,35 @@ if(!isset($_SESSION["uid"])){
         </ul>
         
         <ul class ="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
+            <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
                 <div class="dropdown-menu" style="width:300px;">
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-3">Id</div>
+                                <div class="col-md-3">Serial</div>
                                 <div class="col-md-3">Image</div>
                                 <div class="col-md-3">Name</div>
                                 <div class="col-md-3">Price</div>
                             </div>
                         </div>    
-                        <div class="panel-body"></div>
+                        <div class="panel-body">
+                      <div id = "cart_product">
+                      <!--      <div class="row">
+                                
+                                <div class="col-md-3">Serial</div>
+                                <div class="col-md-3">Image</div>
+                                <div class="col-md-3">Name</div>
+                                <div class="col-md-3">Price</div>
+                            </div>
+                       </div>  -->
+                       <div>
+                        
                         <div class="panel-footer"></div>
                     </div>
                 </div>
             </li>    
                 
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php 
-            echo "Hi !,".$_SESSION["name"]. " Settings";?></a>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Hi !,".$_SESSION["name"]. " Settings";?></a>
                 <ul class="dropdown-menu">
                     <li><a href="cart.php" style="text-decoration:none; color:red;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
                             <li class="divider"></li>
@@ -124,6 +130,10 @@ if(!isset($_SESSION["uid"])){
                 
             
             <div class ="col-md-9">
+            <div class = "row">
+                <div class="col-md-12" id="product_msg">
+                </div>
+            </div>
                 <div class="panel panel-info">
                     <div class ="panel-heading">Products</div>
                         <div class="panel-body">

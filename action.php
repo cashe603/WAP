@@ -221,7 +221,6 @@ if(isset($_POST["addProduct"])){
                 if($num_rows > 0) {
                 echo "Product is already in the cart";
             }
-                //problematic bit
                 
                 
                 else {
@@ -269,12 +268,37 @@ if(isset($_POST["addProduct"])){
     echo "Log in or Sign up";
         
     }           
-}   
-   
-   
-   
-   
-   
-    
+}
 
-?>
+if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
+	$uid = $_SESSION["uid"];
+	$sql = "SELECT * FROM cart WHERE user_id = ?";
+	$stmt =$con->prepare($sql);
+	$stmt->bind_param("i", $uid);
+	$stmt->execute();
+		$result = $stmt->get_result();
+                $num_rows = $result->num_rows;
+
+                if($num_rows > 0) {
+                    $no=1;
+                    while ($row = $result->fetch_assoc()) {
+                        $id = $row["p_id"];
+			$pro_id = $row["pro_id"];
+			$pro_name = $row["product_title"];
+			$pro_image = $row["product_image"];
+			$pro_price = $row["product_price"];
+				echo "
+				<div class='row'>
+					<div class='col-md-3 col-xs-3'>$no</div>
+					<div class='col-md-3 col-xs-3'><img src='product_images/$pro_image' width='60px' height='50px'></div>
+					<div class='col-md-3 col-xs-3'>$pro_name</div>
+					<div class='col-md-3 col-xs-3'>$ $pro_price </div>
+				</div>
+			";
+			$no = $no + 1;
+			}
+			
+    }
+
+}
+

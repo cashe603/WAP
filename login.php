@@ -5,7 +5,7 @@ require_once("config.php");
 if(isset($_POST["username"])){
  
 	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$password = MD5($_POST['password']);
 
         $stmt=$con->prepare("SELECT * from users WHERE username LIKE ? AND password LIKE ? LIMIT 1");
 	$stmt->bind_param("ss", $username, $password);
@@ -13,18 +13,14 @@ if(isset($_POST["username"])){
 	$stmt->execute();
 	$result = $stmt->get_result();
         $num_rows = $result->num_rows;
-
-        if($num_rows >= 1) {
+				if($num_rows >= 1) {
             $row = $result->fetch_assoc();
-             $_SESSION['uid'] = $row['id'];
+            $_SESSION['uid'] = $row['id'];
             $_SESSION['loggedin'] = $username;
             $_SESSION['name'] = $row['name'];
-            
-           echo "welcome";
       }  
       else  {  
            echo "No";
       }  
-   
- }
-?>
+}
+

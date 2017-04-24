@@ -160,7 +160,7 @@ if($stmt->num_rows > 0){
 else {
 
 		
-    $sql = "INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `country`, `city`, `address`, `zip`) VALUES (?, ? , ? , ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `country`, `city`, `address`, `zip`) VALUES (?, ? , MD5(?) , ?, ?, ?, ?, ?, ?)";
 
 		if ($stmt= $con->prepare($sql)) {
                     $stmt->bind_param("issssssss",$var1, $username, $password, $email, $name, $country, $city, $address, $zip);
@@ -169,9 +169,9 @@ else {
                     
                     $stmt->execute();
                     echo '<script language="javascript">';
-                    echo 'alert("Registation Successful")';
+                    echo 'alert("Registation Successful"); window.location = "index.php";';
                     echo '</script>';
-		
+										
 
 			echo "
 
@@ -187,6 +187,3 @@ else {
             
         }    
     }	
-	
-	
-?>

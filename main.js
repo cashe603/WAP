@@ -225,4 +225,16 @@ $(document).ready(function(){
                 })
                 
     })
+    cart_container();
+	function cart_container(){
+		$.ajax({
+			url	:	"action.php",
+			method	:	"POST",
+			data	:	{get_cart_product:1},
+			success	:	function(data){
+				$("#cart_product").html(data);
+			}
+		})
+		
+	}
 })
