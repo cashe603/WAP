@@ -76,16 +76,17 @@ if(!isset($_SESSION["uid"])){
             </li>    
                 
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php 
-            echo "Hi !,".$_SESSION["name"]. " Click for Settings";?></a>
+            echo "Hi !,".$_SESSION["name"]. " Settings";?></a>
                 <ul class="dropdown-menu">
-                    <li><a href="cart.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
+                    <li><a href="cart.php" style="text-decoration:none; color:red;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
                             <li class="divider"></li>
-                                <li><a href="" style="text-decoration:none; color:blue;">Chnage Password</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="logout.php" style="text-decoration:none; color:blue;">Logout</a></li>
+                                <li><a href="" style="text-decoration:none; color:red;">Chnage Password</a></li>
+                                    
                                     </ul>
-            </li>    
+            </li><li><a href="logout.php" style="bgcolor:text-decoration:none; color:red;"><span class="glyphicon glyphicon-log-out">Logout</a></li>
+                                        
             </ul>
+            
         
       </div>  
     </div>

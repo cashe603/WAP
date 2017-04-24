@@ -88,8 +88,8 @@ if(isset($_POST["getProduct"])){
                                         <p>$psubdesc</p>
                                     </div>    
                                     <div class ='panel-heading'></div>$ $pprice
-                                        <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
-
+                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                
                                 </div>
                             </div>";    
                             
@@ -116,7 +116,7 @@ if(isset($_POST["get_selected_Category"])){
                                         </div>
                                         <div class = 'well well-sm'>$pdesc</p>
                                     <div class ='panel-heading'></div>$ $pprice
-                                        <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
 
                                 </div>
                             </div>";    
@@ -149,7 +149,7 @@ if(isset($_POST["selectBrand"])){
                                     </div>
                                     <div class = 'well well-sm'>$pdesc</div>
                                     <div class ='panel-heading'></div>$ $pprice
-                                        <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
 
                                 </div>
                             </div>";    
@@ -178,10 +178,10 @@ if(isset($_POST["search"])){
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='350' width='400' />
+                                        <img src='product_images/$pimage' height='350' width='350' />
                                     </div>
-                                    <div class ='panel-heading'></div>$ $pprice
-                                        <button p_id = '$pid' style ='float:right;' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                    <div class ='panel-heading'></div>$<b> $pprice </b>
+                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
 
                                 </div>
                             </div>";    
@@ -197,6 +197,70 @@ if(isset($_POST["search"])){
             
        }
    }
+   
+if(isset($_POST["addProduct"])){
+    if(isset($_SESSION["uid"])){
+
+                $p_id = $_POST["proId"];
+
+		$user_id = $_SESSION["uid"];
+
+		$sql = "SELECT * FROM cart WHERE p_id = ? AND user_id = ?";
+
+		$stmt=$con->prepare($sql);
+		$stmt->bind_param("ii", $p_id,$user_id);
+		$stmt->execute();
+		$ptitle = "product_title";
+                $pprice = "product_price";
+    ;           $pimage = "product_image";
+                
+                $stmt->bind_result();
+                $result = $stmt->get_result();
+                $num_rows = $result->num_rows;
+
+                if($num_rows > 0) {
+                echo "Product is already in the cart";
+            }
+                //problematic bit
+                
+                
+                else {
+		$sql = "SELECT * FROM products WHERE product_id = ?";
+			$stmt = $con->prepare($sql);
+			$stmt->bind_param("i", $p_id);
+			$stmt->execute();
+			
+			
+                        $result = $stmt->get_result();
+                        $numRows = $result->num_rows;
+
+
+			while ($row = $result->fetch_assoc()) {
+            
+			        $id = $row["product_id"];
+				$pro_name = $row["product_title"];
+				$pro_image = $row["product_image"];
+				$pro_price = $row["product_price"];    
+                    
+                                $sql = "INSERT INTO `cart` (`p_id`, `pro_id`, `ip_add`, `user_id`, `product_title`, `product_image`, `qty`, `product_price`, `total_amt`) VALUES    (NULL, '$p_id', '0', '$user_id', '$pro_name', '$pro_image', '1', '$pro_price', '$pro_price')";
+                                
+                                $stmt = $con->prepare($sql);
+                                
+                                if($stmt->execute()){
+				echo "Product Is added to Cart!";
+                        }}
+                    }
+            }
+      
+ else{
+    echo "Log in or Sign up";
+        
+    }           
+}   
+   
+   
+   
+   
    
     
 

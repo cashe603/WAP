@@ -1,3 +1,13 @@
+<?php
+session_start();
+if(isset($_SESSION["uid"])){
+    header("location:profile.php");
+}
+
+?>
+
+
+
 <DOCTYPE HTML!>
 
 <html>
@@ -12,7 +22,8 @@
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js?ts=<?=time()?>&quot;"></script>
   
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:500' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
   <style>
 
 			@media screen and (max-width:720px){
@@ -98,7 +109,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class=col-md-2>
-				<div id="get_category">
+				<div id="get_category" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 				</div>
 				<!--<div class="nav nav-pills nav-stacked">
 					<li class="active"><a href="#"><h4>Categories</h4></a></li>
@@ -107,7 +118,7 @@
 					<li><a href="#">Categories</a></li>
 					<li><a href="#">Categories</a></li>
 				</div> -->
-				<div id="get_brand">
+				<div id="get_brand" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 				</div>
                     <!--
 	            <div class ="nav nav-pills nav-stacked">
@@ -120,14 +131,16 @@
                     <li><a href="#">Bethesda</a></li>
                 </div>
                 -->
-            </div>  
-                
-            
-            <div class ="col-md-9">
-                <div class="panel panel-info">
-                    <div class ="panel-heading">Products</div>
-                        <div class="panel-body">
-                            <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
+            </div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12" id="product_msg">
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">Products</div>
+					<div class="panel-body">
+			                <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
                             </div>
                             <!--
                             <div class="col-md-4">
