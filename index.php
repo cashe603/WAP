@@ -82,7 +82,7 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
                                 <input type ="password" class ="form-control" id="password" placeholder="Enter your password"/>
                                 <p><br/></p>
                                 <button type="button" name="login_button" id="login_button" class="btn btn-warning">Login</button> 
-                                <a href="#" style="color:white; list-style:none;">Forgotten Password</a>
+                                <a href="reset_pwd.php" style="color:white; list-style:none;">Forgotten Password</a>
                             </div>
                             <div class="panel-footer" id="e_msg"></div>
                         </div>    

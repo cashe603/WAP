@@ -283,6 +283,8 @@ if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
 			$price_array = array($total);
 			$total_sum = array_sum($price_array);
 			$total_amt = $total_amt + $total_sum;
+			setcookie("ta",$total_amt,strtotime("+1 day"),"/","","",TRUE);
+			
                         
                         if(isset($_POST["get_cart_product"])){
                                 
@@ -302,32 +304,89 @@ if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
                         }
                         
                         else{
-                        echo "
-                                <div class='row'>
-                                    <div class='col-md-2 col-sm-2'>
-                                        <div class='btn-group'>
-                                        <a href='#' remove_id='$pro_id' class='btn btn-danger btn-sm remove'><span class='glyphicon glyphicon-trash'></span></a>
-                                        <a href='#' update_id='$pro_id' class='btn btn-primary btn-sm update'><span class='glyphicon glyphicon-ok-sign'></span></a>
-                                    </div>
-                                </div>
-                                    <div class='col-md-2 col-sm-2'><img src='product_images/$pro_image' width='100px' height='100'></div>
-                                    <div class='col-md-2 col-sm-2'>$pro_name</div>
-                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control qty' pid='$pro_id' id='qty-$pro_id' value='$qty' ></div>
-                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control price' pid='$pro_id' id='price-$pro_id' value='$pro_price' disabled></div>
-                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control total' pid='$pro_id' id='total-$pro_id' value='$total' disabled></div>
-                                    </div>
+                        echo "
+
+                                <div class='row'>
+
+                                    <div class='col-md-2 col-sm-2'>
+
+                                        <div class='btn-group'>
+
+                                        <a href='#' remove_id='$pro_id' class='btn btn-danger btn-sm remove'><span class='glyphicon glyphicon-trash'></span></a>
+
+                                        <a href='#' update_id='$pro_id' class='btn btn-primary btn-sm update'><span class='glyphicon glyphicon-ok-sign'></span></a>
+
+                                    </div>
+
+                                </div>
+
+                                    <div class='col-md-2 col-sm-2'><img src='product_images/$pro_image' width='100px' height='100'></div>
+
+                                    <div class='col-md-2 col-sm-2'>$pro_name</div>
+
+                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control qty' pid='$pro_id' id='qty-$pro_id' value='$qty' ></div>
+
+                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control price' pid='$pro_id' id='price-$pro_id' value='$pro_price' disabled></div>
+
+                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control total' pid='$pro_id' id='total-$pro_id' value='$total' disabled></div>
+
+                                    </div>
+
 				";
                         }
                         
                     }
                                 
-		if(isset($_POST["cart_checkout"])){
-			echo "<div class='row'>
-				<div class='col-md-8'></div>
-				<div class='col-md-4'>
-					<h2>Total $$total_amt</h2>
+		if(isset($_POST["cart_checkout"])){
+
+			echo "<div class='row'>
+
+				<div class='col-md-8'></div>
+
+				<div class='col-md-4'>
+
+					<h2><b>Total $$total_amt </b></h2>
+
 				</div>";	
 				}
+				
+		echo '       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                                <input type="hidden" name="cmd" value="_cart">
+                                <input type="hidden" name="business" value="fislam@itcollege.ee">
+                                <input type="hidden" name="upload" value="1">';
+				  
+                                $x=0;
+                                $uid = $_SESSION["uid"];
+                                $stmt = $con->prepare ("SELECT * FROM cart WHERE user_id = ?");
+                                $stmt->bind_param("i", $uid);
+				  
+                                $stmt->execute();
+				  
+                                $result = $stmt->get_result();
+                                $numRows = $result->num_rows;
+                                while ($row = $result->fetch_assoc()) {
+                                    $x++;
+                               
+				 echo  '<input type="hidden" name="item_name_'.$x.'" value="'.$row["product_title"].'">
+				  <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
+				  <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
+				  <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+				  
+				  }
+				  
+				echo   '
+				<input type="hidden" name="return" value="https://cash3603.000webhostapp.com/success_payment.php"/>
+				<input type="hidden" name="cancel_return" value="https://cash3603.000webhostapp.com//cancel.php"/>
+				<input type="hidden" name="currency_code" value="USD"/>
+				<input type="hidden" name="custom" value="'.$uid.'"/>
+				<input style="float:right;margin-right:80px;" type="image" name="submit"
+					src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-60px.png" alt="PayPal">
+				</form>';
+		
+		
+		
+		
+		
     }
 
 }
@@ -346,22 +405,39 @@ if(isset($_POST["removeFromCart"])){
     }
 }
 
-if(isset($_POST["updateProduct"])){
-	$uid = $_SESSION["uid"];
-	$pid = $_POST["updateId"];
-	$qty = $_POST["qty"];
-	$price = $_POST["price"];
-	$total = $_POST["total"];
-	
-	$stmt=$con->prepare( "UPDATE cart SET qty = ?,product_price=?,total_amt=? 
-	WHERE user_id = ? AND pro_id=?");
+if(isset($_POST["updateProduct"])){
+
+	$uid = $_SESSION["uid"];
+
+	$pid = $_POST["updateId"];
+
+	$qty = $_POST["qty"];
+
+	$price = $_POST["price"];
+
+	$total = $_POST["total"];
+
+	
+
+	
+$stmt=$con->prepare( "UPDATE cart SET qty = ?,product_price=?,total_amt=? 
+
+	WHERE user_id = ? AND pro_id=?");
+
 	$stmt ->bind_param("iiiii", $qty, $price, $total, $uid, $pid);
         if ($stmt->execute()){
-		echo "
-			<div class='alert alert-success'>
-				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>Product is Updated Continue Shopping..!</b>
-			</div>
-		";
-	}
+		echo "
+
+			<div class='alert alert-success'>
+
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+
+				<b>Product is Updated Continue Shopping..!</b>
+
+			</div>
+
+		";
+
+	}
+
 }
