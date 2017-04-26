@@ -90,7 +90,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
                 <ul class="dropdown-menu">
                     <li><a href="cart.php" style="text-decoration:none; color:red;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
                             <li class="divider"></li>
-                                <li><a href="" style="text-decoration:none; color:red;">Chnage Password</a></li>
+                                <li><a href="contact.php" style="text-decoration:none; color:red;">Contact Me</a></li>
                                     
                                     </ul>
             </li><li><a href="logout.php" style="bgcolor:text-decoration:none; color:red;"><span class="glyphicon glyphicon-log-out">Logout</a></li>
