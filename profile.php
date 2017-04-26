@@ -18,6 +18,9 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
   <script src = "main.js?ts=<?=time()?>&quot;"></script>
   
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
+  
+  
   <style>
 
 			@media screen and (max-width:720px){
@@ -54,7 +57,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
         </ul>
         
         <ul class ="nav navbar-nav navbar-right">
-            <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
+            <li><a href="cart.php" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
                 <div class="dropdown-menu" style="width:300px;">
                     <div class="panel panel-success">
                         <div class="panel-heading">
@@ -75,6 +78,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
                                 <div class="col-md-3">Price</div>
                             </div>
                        </div>  -->
+                       
                        <div>
                         
                         <div class="panel-footer"></div>
@@ -82,7 +86,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
                 </div>
             </li>    
                 
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Hi !,".$_SESSION["name"]. " Settings";?></a>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Hi !,".$_SESSION["name"]. " |Control Panel|";?></a>
                 <ul class="dropdown-menu">
                     <li><a href="cart.php" style="text-decoration:none; color:red;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
                             <li class="divider"></li>
@@ -104,7 +108,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class=col-md-2>
-				<div id="get_category">
+				<div id="get_category" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 				</div>
 				<!--<div class="nav nav-pills nav-stacked">
 					<li class="active"><a href="#"><h4>Categories</h4></a></li>
@@ -113,7 +117,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
 					<li><a href="#">Categories</a></li>
 					<li><a href="#">Categories</a></li>
 				</div> -->
-				<div id="get_brand">
+				<div id="get_brand" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 				</div>
                     <!--
 	            <div class ="nav nav-pills nav-stacked">

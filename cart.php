@@ -1,3 +1,8 @@
+<?php
+session_start();
+if(!isset($_SESSION["uid"])){header("location:index.php");}?>
+
+
 <DOCTYPE HTML!>
 
 <html>
@@ -5,15 +10,13 @@
   
   <meta charset ="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
-  <title>Bossman's Gadget Store 2.0</title>
+  <title>Bossman's Gadget Store Checkout 2.0</title>
   <link rel = "stylesheet" href = "css/bootstrap.min.css"/>
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js?ts=<?=time()?>&quot;"></script>
   
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:500' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
   <style>
 
 			@media screen and (max-width:720px){
@@ -73,7 +76,7 @@
 							<div class="col-md-2 col-xs-2"><b>Product Name</b></div>
 							<div class="col-md-2 col-xs-2"><b>Quantity</b></div>
 							<div class="col-md-2 col-xs-2"><b>Product Price</b></div>
-							<div class="col-md-2 col-xs-2"><b>Price in $</b></div>
+							<div class="col-md-2 col-xs-2"><b>Total Price</b></div>
 						</div>
 						<div id = "cart_checkout"></div>
 					<!--	<div class="row">
@@ -88,12 +91,7 @@
 							<div class="col-md-2"><input type='text' class='form-control' value='1' ></div>
 							<div class="col-md-2"><input type='text' class='form-control' value='5000' disabled></div>
 							<div class="col-md-2"><input type='text' class='form-control' value='5000' disabled></div>
-						</div>
-						<div class="row">
-							<div class="col-md-8"></div>
-							<div class="col-md-4">
-								<b>Total $500000</b>
-							</div> -->
+						</div>  -->
 						</div> 
 					</div>
 					<div class="panel-footer"></div>

@@ -205,16 +205,12 @@ if(isset($_POST["addProduct"])){
 
 		$user_id = $_SESSION["uid"];
 
-		$sql = "SELECT * FROM cart WHERE p_id = ? AND user_id = ?";
+		$sql = "SELECT * FROM cart WHERE pro_id = ? AND user_id = ?";
 
 		$stmt=$con->prepare($sql);
 		$stmt->bind_param("ii", $p_id,$user_id);
 		$stmt->execute();
-		$ptitle = "product_title";
-                $pprice = "product_price";
-    ;           $pimage = "product_image";
-                
-                $stmt->bind_result();
+		
                 $result = $stmt->get_result();
                 $num_rows = $result->num_rows;
 
@@ -225,30 +221,23 @@ if(isset($_POST["addProduct"])){
                 
                 else {
 
-		$sql = "SELECT * FROM products WHERE product_id = ?";
-
-			$stmt = $con->prepare($sql);
-
-			$stmt->bind_param("i", $p_id);
+                        $sql = "SELECT * FROM products WHERE product_id = ?";
+                        $stmt = $con->prepare($sql);
+                        $stmt->bind_param("i", $p_id);
 			$stmt->execute();
 			
-			
-                        $result = $stmt->get_result();
+			$result = $stmt->get_result();
                         $numRows = $result->num_rows;
 
 
 			while ($row = $result->fetch_assoc()) {
             
 			        $id = $row["product_id"];
-
-				$pro_name = $row["product_title"];
-
-				$pro_image = $row["product_image"];
-
-				$pro_price = $row["product_price"];    
+                                $pro_name = $row["product_title"];
+                                $pro_image = $row["product_image"];
+                                $pro_price = $row["product_price"];    
                     
                                 $sql = "INSERT INTO `cart` (`p_id`, `pro_id`, `ip_add`, `user_id`, `product_title`, `product_image`, `qty`, `product_price`, `total_amt`) VALUES    (?,?,?,?,?,?,?,?,?)";
-                                
                                 
                                 $stmt = $con->prepare($sql);
                                 $var1 = NULL;
@@ -259,7 +248,11 @@ if(isset($_POST["addProduct"])){
                                 $stmt->bind_param("iiiissiii", $var1, $p_id, $var2, $user_id, $pro_name, $pro_image, $qty, $pro_price, $total_amt);
                                 
                                 if($stmt->execute()){
-				echo "Product Is added to Cart!";
+                                    echo "<div class='alert alert-success'>
+                                        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                        <b>Product Added to Cart...!</b>
+                                        </div>
+                                        ";
                         }}
                     }
             }
@@ -270,9 +263,12 @@ if(isset($_POST["addProduct"])){
     }           
 }
 
-if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
-	$uid = $_SESSION["uid"];
-	$sql = "SELECT * FROM cart WHERE user_id = ?";
+if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
+
+	$uid = $_SESSION["uid"];
+
+	$sql = "SELECT * FROM cart WHERE user_id = ?";
+
 	$stmt =$con->prepare($sql);
 	$stmt->bind_param("i", $uid);
 	$stmt->execute();
@@ -281,24 +277,98 @@ if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
 
                 if($num_rows > 0) {
                     $no=1;
+                    $total_amt =0;
                     while ($row = $result->fetch_assoc()) {
-                        $id = $row["p_id"];
-			$pro_id = $row["pro_id"];
-			$pro_name = $row["product_title"];
-			$pro_image = $row["product_image"];
-			$pro_price = $row["product_price"];
-				echo "
-				<div class='row'>
-					<div class='col-md-3 col-xs-3'>$no</div>
-					<div class='col-md-3 col-xs-3'><img src='product_images/$pro_image' width='60px' height='50px'></div>
-					<div class='col-md-3 col-xs-3'>$pro_name</div>
-					<div class='col-md-3 col-xs-3'>$ $pro_price </div>
-				</div>
-			";
-			$no = $no + 1;
-			}
-			
+                        $id = $row["p_id"];
+                        $pro_id = $row["pro_id"];
+                        $pro_name = $row["product_title"];
+                        $pro_image = $row["product_image"];
+                        $pro_price = $row["product_price"];
+			$qty = $row["qty"];
+			$total = $row["total_amt"];
+			$price_array = array($total);
+			$total_sum = array_sum($price_array);
+			$total_amt = $total_amt + $total_sum;
+                        
+                        if(isset($_POST["get_cart_product"])){
+                                
+                            echo "
+
+                            <div class='row'>
+                                <div class='col-md-3 col-xs-3'>$no</div>
+                                    <div class='col-md-3 col-xs-3'><img src='product_images/$pro_image' width='60px' height='50px'></div>
+                                    <div class='col-md-3 col-xs-3'>$pro_name</div>
+                                    <div class='col-md-3 col-xs-3'>$ $pro_price </div>
+                                </div>
+
+			";
+
+			$no = $no + 1;
+
+                        }
+                        
+                        else{
+                        echo "
+                                <div class='row'>
+                                    <div class='col-md-2 col-sm-2'>
+                                        <div class='btn-group'>
+                                        <a href='#' remove_id='$pro_id' class='btn btn-danger btn-sm remove'><span class='glyphicon glyphicon-trash'></span></a>
+                                        <a href='#' update_id='$pro_id' class='btn btn-primary btn-sm update'><span class='glyphicon glyphicon-ok-sign'></span></a>
+                                    </div>
+                                </div>
+                                    <div class='col-md-2 col-sm-2'><img src='product_images/$pro_image' width='100px' height='100'></div>
+                                    <div class='col-md-2 col-sm-2'>$pro_name</div>
+                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control qty' pid='$pro_id' id='qty-$pro_id' value='$qty' ></div>
+                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control price' pid='$pro_id' id='price-$pro_id' value='$pro_price' disabled></div>
+                                    <div class='col-md-2 col-sm-2'><input type='text' class='form-control total' pid='$pro_id' id='total-$pro_id' value='$total' disabled></div>
+                                    </div>
+				";
+                        }
+                        
+                    }
+                                
+		if(isset($_POST["cart_checkout"])){
+			echo "<div class='row'>
+				<div class='col-md-8'></div>
+				<div class='col-md-4'>
+					<h2>Total $$total_amt</h2>
+				</div>";	
+				}
     }
 
 }
 
+if(isset($_POST["removeFromCart"])){
+    $pid = $_POST["removeId"];
+    $uid = $_SESSION["uid"];
+    $stmt = $con->prepare("DELETE FROM cart WHERE user_id = ? and pro_id = ?");
+    $stmt->bind_param("ii", $uid, $pid);
+    if ($stmt->execute()){
+        echo "<div class='alert alert-success'>
+                <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                <b>Product Removed...!</b>
+                </div>
+                ";
+    }
+}
+
+if(isset($_POST["updateProduct"])){
+	$uid = $_SESSION["uid"];
+	$pid = $_POST["updateId"];
+	$qty = $_POST["qty"];
+	$price = $_POST["price"];
+	$total = $_POST["total"];
+	
+	$stmt=$con->prepare( "UPDATE cart SET qty = ?,product_price=?,total_amt=? 
+	WHERE user_id = ? AND pro_id=?");
+	
+	$stmt ->bind_param("iiiii", $qty, $price, $total, $uid, $pid);
+        if ($stmt->execute()){
+		echo "
+			<div class='alert alert-success'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>Product is Updated Continue Shopping..!</b>
+			</div>
+		";
+	}
+}
