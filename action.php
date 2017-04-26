@@ -19,8 +19,7 @@ if(isset($_POST["category"])){
     <li class='active'><a href='#'><h4>Categories</h4></a></li>
 	";
     
-
-     while ($stmt->fetch()) {
+    while ($stmt->fetch()) {
     
     echo "
         <li><a href='#' class='category' cid='$cid'>$cname</a></li>
@@ -134,7 +133,6 @@ if(isset($_POST["selectBrand"])){
     $stmt->bind_param("i", $bid); 
     $bid = $_POST['brand_id'];
 
-    
     $stmt->execute();
     $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
 
@@ -202,10 +200,8 @@ if(isset($_POST["addProduct"])){
     if(isset($_SESSION["uid"])){
 
                 $p_id = $_POST["proId"];
-
-		$user_id = $_SESSION["uid"];
-
-		$sql = "SELECT * FROM cart WHERE pro_id = ? AND user_id = ?";
+                $user_id = $_SESSION["uid"];
+                $sql = "SELECT * FROM cart WHERE pro_id = ? AND user_id = ?";
 
 		$stmt=$con->prepare($sql);
 		$stmt->bind_param("ii", $p_id,$user_id);
@@ -215,7 +211,7 @@ if(isset($_POST["addProduct"])){
                 $num_rows = $result->num_rows;
 
                 if($num_rows > 0) {
-                echo "Product is already in the cart";
+                echo '<script>window.alert("Product is Already in the Cart. Go to the Control Panel to increase quanitity or delete ")</script>';
             }
                 
                 
@@ -228,9 +224,7 @@ if(isset($_POST["addProduct"])){
 			
 			$result = $stmt->get_result();
                         $numRows = $result->num_rows;
-
-
-			while ($row = $result->fetch_assoc()) {
+                        while ($row = $result->fetch_assoc()) {
             
 			        $id = $row["product_id"];
                                 $pro_name = $row["product_title"];
@@ -258,8 +252,8 @@ if(isset($_POST["addProduct"])){
             }
       
  else{
-    echo "Log in or Sign up";
-        
+    echo '<script>window.alert("Please Log In or Sign Up")</script>';
+            
     }           
 }
 
@@ -359,9 +353,8 @@ if(isset($_POST["updateProduct"])){
 	$price = $_POST["price"];
 	$total = $_POST["total"];
 	
-	$stmt=$con->prepare( "UPDATE cart SET qty = ?,product_price=?,total_amt=? 
+	$stmt=$con->prepare( "UPDATE cart SET qty = ?,product_price=?,total_amt=? 
 	WHERE user_id = ? AND pro_id=?");
-	
 	$stmt ->bind_param("iiiii", $qty, $price, $total, $uid, $pid);
         if ($stmt->execute()){
 		echo "
