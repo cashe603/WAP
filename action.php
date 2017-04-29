@@ -2,6 +2,18 @@
 session_start();
 include "config.php";
 
+function getIp() {
+    $ip = $_SERVER['REMOTE_ADDR'];
+ 
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+ 
+    return $ip;
+}
+
 if(isset($_POST["category"])){
     $query = "SELECT * FROM categories WHERE 'cat_id'=? AND 'cat_title'=?";
 
@@ -172,11 +184,11 @@ if(isset($_POST["search"])){
         while ($stmt->fetch()) {
 
                             echo"
-                            <div class='col-md-6'>
+                            <div class='col-md-5'>
                                 <div class ='panel panel-info'>
                                     <div class ='panel-heading'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='350' width='350' />
+                                        <img src='product_images/$pimage' height='300' width='300' />
                                     </div>
                                     <div class ='panel-heading'></div>$<b> $pprice </b>
                                         <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
@@ -235,7 +247,7 @@ if(isset($_POST["addProduct"])){
                                 
                                 $stmt = $con->prepare($sql);
                                 $var1 = NULL;
-                                $var2 = 0;
+                                $var2 = getIP();
                                 $qty = 1;
                                 $total_amt = $pro_price;
                             
@@ -283,7 +295,8 @@ if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
 			$price_array = array($total);
 			$total_sum = array_sum($price_array);
 			$total_amt = $total_amt + $total_sum;
-			setcookie("ta",$total_amt,strtotime("+1 day"),"/","","",TRUE);
+			setcookie("ta", $total_amt);
+                        setcookie("ta", $total_amt, time()+3600);
 			
                         
                         if(isset($_POST["get_cart_product"])){
@@ -350,40 +363,67 @@ if(isset($_POST["get_cart_product"]) || isset($_POST["cart_checkout"])){
 				</div>";	
 				}
 				
-		echo '       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                                <input type="hidden" name="cmd" value="_cart">
-                                <input type="hidden" name="business" value="fislam@itcollege.ee">
-                                <input type="hidden" name="upload" value="1">';
-				  
-                                $x=0;
-                                $uid = $_SESSION["uid"];
+		echo '
+       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+
+                                <input type="hidden" name="cmd" value="_cart">
+
+                                <input type="hidden" name="business" value="fislam@itcollege.ee">
+
+                                <input type="hidden" name="upload" value="1">';
+
+				  
+
+                                $x=0;
+
+                                $uid = $_SESSION["uid"];
+
                                 $stmt = $con->prepare ("SELECT * FROM cart WHERE user_id = ?");
                                 $stmt->bind_param("i", $uid);
 				  
-                                $stmt->execute();
+                                $stmt->execute();
+
 				  
                                 $result = $stmt->get_result();
                                 $numRows = $result->num_rows;
                                 while ($row = $result->fetch_assoc()) {
-                                    $x++;
-                               
-				 echo  '<input type="hidden" name="item_name_'.$x.'" value="'.$row["product_title"].'">
-				  <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
-				  <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
-				  <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
-				  
-				  }
-				  
-				echo   '
-				<input type="hidden" name="return" value="https://cash3603.000webhostapp.com/success_payment.php"/>
-				<input type="hidden" name="cancel_return" value="https://cash3603.000webhostapp.com//cancel.php"/>
-				<input type="hidden" name="currency_code" value="USD"/>
-				<input type="hidden" name="custom" value="'.$uid.'"/>
-				<input style="float:right;margin-right:80px;" type="image" name="submit"
+                                    $x++;
+
+                               
+
+				 echo  '<input type="hidden" name="item_name_'.$x.'" value="'.$row["product_title"].'">
+
+				  <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
+
+				  <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
+
+				  <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+
+				  
+
+				  }
+
+				  
+
+				echo   '
+
+				<input type="hidden" name="return" value="https://cash3603.000webhostapp.com/success_payment.php"/>
+
+				<input type="hidden" name="cancel_return" value="https://cash3603.000webhostapp.com//cancel.php"/>
+
+				<input type="hidden" name="currency_code" value="USD"/>
+
+				<input type="hidden" name="custom" value="'.$uid.'"/>
+
+				<input style="float:right;margin-right:80px;" type="image" name="submit"
+
 					src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-60px.png" alt="PayPal">
-				</form>';
-		
-		
+				</form>';
+
+		
+
+		
+
 		
 		
 		
@@ -408,18 +448,12 @@ if(isset($_POST["removeFromCart"])){
 if(isset($_POST["updateProduct"])){
 
 	$uid = $_SESSION["uid"];
+        $pid = $_POST["updateId"];
+        $qty = $_POST["qty"];
+        $price = $_POST["price"];
+        $total = $_POST["total"];
 
-	$pid = $_POST["updateId"];
-
-	$qty = $_POST["qty"];
-
-	$price = $_POST["price"];
-
-	$total = $_POST["total"];
-
-	
-
-	
+            
 $stmt=$con->prepare( "UPDATE cart SET qty = ?,product_price=?,total_amt=? 
 
 	WHERE user_id = ? AND pro_id=?");

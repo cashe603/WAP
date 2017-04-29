@@ -9,20 +9,20 @@ $cc = $_GET["cc"];
 $cm = $_GET["cm"];
 ?>
 
-<DOCTYPE HTML!>
-
+<!DOCTYPE HTML>
 
 <html>
+  
   <head>
   
   <meta charset ="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <title>Bossman's Gadget Store 2.0</title>
-  <link rel = "stylesheet" href = "css/bootstrap.min.css"/>
+  <link rel = "stylesheet" href = "css/bootstrap.min.css">
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
-  <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  <script src = "main.js"></script>
   
   
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
@@ -89,4 +89,5 @@ $cm = $_GET["cm"];
 
 
 </html>
+
 <?php session_destroy(); ?>

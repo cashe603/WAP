@@ -2,10 +2,9 @@
 session_start();
 if(!isset($_SESSION["uid"])){header("location:index.php");}?>
 
-<DOCTYPE HTML!>
-
-
+<DOCTYPE HTML>
 <html>
+  
   <head>
   
   <meta charset ="UTF-8">
@@ -15,7 +14,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
-  <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  <script src = "main.js"></script>
   
   
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>

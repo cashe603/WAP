@@ -1,19 +1,19 @@
 <?php
 session_start();
 if(isset($_SESSION["uid"])){header("location:profile.php");}?>
-<DOCTYPE HTML!>
-
+<!DOCTYPE HTML>
 <html>
-  <head>
+
+<head>
   
   <meta charset ="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <title>Bossman's Gadget Store 2.0</title>
-  <link rel = "stylesheet" href = "css/bootstrap.min.css"/>
+  <link rel = "stylesheet" href = "css/bootstrap.min.css">
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
-  <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  <script src = "main.js"></script>
   
   <link href='http://fonts.googleapis.com/css?family=Montserrat:500' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
@@ -30,7 +30,7 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
     </style>
     
     
-  </head>
+</head>
     
 <body>
     <nav class="navbar navbar-inverse">
@@ -47,7 +47,7 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
       <ul class="nav navbar-nav">
             <li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
             
-            <li style="width:300px;left:10px;top:10px"><input type ="text" class="form-control" id="search" placeholder="Tap/Click to Search" required></li>
+            <li style="width:300px;left:10px;top:10px"><input type ="text" class="form-control" id="search" placeholder="Tap/Click to Search"></li>
             <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
         
         </ul>
@@ -76,9 +76,9 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
                         <div class ="panel panel-primary">
                             <div class="panel-heading">Sign In</div>
                             <div class="panel-heading">
-                                <label for="email">Username</label>
+                                <label>Username</label>
                                 <input type ="email" class ="form-control" id="username" placeholder="Enter your username"/>
-                                <label for="email">Password</label>
+                                <label>Password</label>
                                 <input type ="password" class ="form-control" id="password" placeholder="Enter your password"/>
                                 <p><br/></p>
                                 <button type="button" name="login_button" id="login_button" class="btn btn-warning">Login</button> 
@@ -104,26 +104,10 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
 			<div class=col-md-2>
 				<div id="get_category" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 				</div>
-				<!--<div class="nav nav-pills nav-stacked">
-					<li class="active"><a href="#"><h4>Categories</h4></a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-				</div> -->
+				
 				<div id="get_brand" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 				</div>
-                    <!--
-	            <div class ="nav nav-pills nav-stacked">
-                    <li class="active"><a href="#"><h4>Brands</h4></a></li>
-                    <li><a href="#">Apple</a></li>
-                    <li><a href="#">MSI</a></li>
-                    <li><a href="#">AMD</a></li>
-                    <li><a href="#">Samsung</a></li>
-                    <li><a href="#">Corsair</a></li>
-                    <li><a href="#">Bethesda</a></li>
-                </div>
-                -->
+                   
             </div>
 
 			<div class="col-md-8">
@@ -144,18 +128,7 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
 
 			                <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
                             </div>
-                            <!--
-                            <div class="col-md-4">
-                                <div class ="panel panel-info">
-                                    <div class ="panel-heading">Samsung Galaxy S8</div>
-                                    <div class ="panel-body"></div>
-                                        <img src="product_images/S8Plus_S8_Silver_LockUp_rgb.jpg" height="200" width="200" />
-                                    <div class ="panel-heading"></div>$899.00
-                                        <button style ="float:right;" class="btn btn-danger btn-xs">Add to Cart</button>
-
-                                </div>
-                            </div> -->
-                    </div>
+                           </div>
                     <div class ="panel-footer"><strong>&copy;2017 Farhan The Bossman</strong></div>
                 </div> 
             </div>    

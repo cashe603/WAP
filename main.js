@@ -145,10 +145,8 @@ $(document).ready(function(){
                                alert("Wrong Data");  
                           }  
                           else  
-                          {  
-                               window.location.replace("profile.php");
-                              
-                          }  
+                          {  	window.location.replace("profile.php");window.alert("Welcome Padawan!");
+                              }  
                      }  
                 })  
            }  
@@ -191,41 +189,72 @@ $(document).ready(function(){
 		})
         }
 	
-	function cart_count(){
-		$.ajax({
+	function cart_count(){
+
+		$.ajax({
+
                     
-			url	:	"action.php",
-			method	:	"POST",
-			data	:	{cart_count:1},
-			success	:	function(data){
-				$(".badge").html(data);
-			}
-		})
-	}
-	
-	$("#cart_container").click(function(event){
-		event.preventDefault();
-		$.ajax({
-			url	:	"action.php",
-			method	:	"POST",
-			data	:	{get_cart_product:1},
-			success	:	function(data){
-				$("#cart_product").html(data);
-			}
-		})
-		
+			url	:	"action.php",
+
+			method	:	"POST",
+
+			data	:	{cart_count:1},
+
+			success	:	function(data){
+
+				$(".badge").html(data);
+
+			}
+
+		})
+
+	}
+
+	
+
+	$("#cart_container").click(function(event){
+
+		event.preventDefault();
+
+		$.ajax({
+
+			url	:	"action.php",
+
+			method	:	"POST",
+
+			data	:	{get_cart_product:1},
+
+			success	:	function(data){
+
+				$("#cart_product").html(data);
+
+			}
+
+		})
+
+		
+
 	})
 	
 	
-	function cart_checkout(){
-		$.ajax({
-			url	         :	"action.php",
-			method	:	"POST",
-			data	:	{cart_checkout:1},
-			success	: function(data){
-				$("#cart_checkout").html(data);
-			}
-		})
+	function cart_checkout(){
+
+		$.ajax({
+
+			url	         :	"action.php",
+
+			method	:	"POST",
+
+			data	:	{cart_checkout:1},
+
+			success	: function(data){
+
+				$("#cart_checkout").html(data);
+
+			}
+
+		})
+
 	}
 	
 	
@@ -242,33 +271,55 @@ $(document).ready(function(){
         $("body").delegate(".remove", "click", function(event){
             event.preventDefault();
             var pid = $(this).attr("remove_id");
-                $.ajax({
-			url	         :   "action.php",
-			method	:     "POST",
-			data	:	{removeFromCart:1,removeId:pid},
-			success	: function(data){
+                $.ajax({
+
+			url	         :   "action.php",
+
+			method	:     "POST",
+
+			data	:	{removeFromCart:1,removeId:pid},
+
+			success	: function(data){
+
                             $("#cart_msg").html(data);
                             cart_checkout();
 				
-                        }
-		})
+                        }
+
+		})
+
         })
         
-        $("body").delegate(".update","click",function(event){
-		event.preventDefault();
-		var pid = $(this).attr("update_id");
-		var qty = $("#qty-"+pid).val();
-		var price = $("#price-"+pid).val();
-		var total = $("#total-"+pid).val();
-		$.ajax({
-			url	:"action.php",
-			method	:	"POST",
-			data	:	{updateProduct:1,updateId:pid,qty:qty,price:price,total:total},
-			success	:	function(data){
-				$("#cart_msg").html(data);
-				cart_checkout();
-			}
-		})
+        $("body").delegate(".update","click",function(event){
+
+		event.preventDefault();
+
+		var pid = $(this).attr("update_id");
+
+		var qty = $("#qty-"+pid).val();
+
+		var price = $("#price-"+pid).val();
+
+		var total = $("#total-"+pid).val();
+
+		$.ajax({
+
+			url	:"action.php",
+
+			method	:	"POST",
+
+			data	:	{updateProduct:1,updateId:pid,qty:qty,price:price,total:total},
+
+			success	:	function(data){
+
+				$("#cart_msg").html(data);
+
+				cart_checkout();
+
+			}
+
+		})
+
 	})
 	
 	

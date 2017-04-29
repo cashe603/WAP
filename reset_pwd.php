@@ -33,20 +33,20 @@ if (!$errEmail && !$errHuman) {
 	}
 ?>
 
-
-<DOCTYPE HTML!>
+<!DOCTYPE HTML>
 
 <html>
+
   <head>
   
   <meta charset ="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <title>Reset Password</title>
-  <link rel = "stylesheet" href = "css/bootstrap.min.css"/>
+  <link rel = "stylesheet" href = "css/bootstrap.min.css">
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
-  <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  <script src = "main.js"></script>
      
     
   </head>
@@ -71,8 +71,8 @@ if (!$errEmail && !$errHuman) {
 	</div>
 	<p><br/></p>
 	<h1 style ="text-align:center;">Password Reset Form</h1>
-	<p><br/></p>
-	<p><br/></p>
+	<p><br></p>
+	<p><br></p>
 	<form class="form-horizontal" role="form" method="post" action="reset_pwd.php" style= "color:gray;">
 	
 	<div class="form-group">
@@ -106,8 +106,8 @@ if (!$errEmail && !$errHuman) {
 </div>
 </div>
 
-<p><br/></p>
-<p><br/></p>
+<p><br></p>
+<p><br></p>
 
 </div>
 <div class ="panel-footer"><strong>&copy;2017 Farhan The Bossman</strong></div>
@@ -118,3 +118,5 @@ if (!$errEmail && !$errHuman) {
 </div>                    		
 
 </body>
+
+</html>

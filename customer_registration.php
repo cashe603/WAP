@@ -1,7 +1,7 @@
-<DOCTYPE HTML!>
-
+<!DOCTYPE HTML>
 <html>
-  <head>
+
+<head>
   
   <meta charset ="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
@@ -10,10 +10,10 @@
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
-  <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  <script src = "main.js"></script>
   
     
-  </head>
+</head>
     
 <body>
     <nav class="navbar navbar-inverse">
@@ -33,9 +33,9 @@
     </div>   
     </div>
     
-    <p><br/></p>
-    <p><br/></p>
-    <p><br/></p>
+    <p><br></p>
+    <p><br></p>
+    <p><br></p>
     <div class="container-fluid">
     
      <div class="row">
@@ -87,6 +87,7 @@
                                     <label for="country">Country</label>
                                     <select  class="form-control" name="country">
            					<option value = "0">Select Your Current Country</option>
+           					<option value = "USA">United States</option>
            					<option value = "Estonia">Estonia</option>
            					<option value = "Finland">Finland</option>
            					<option value= "Lithuania">Lithuania</option>
@@ -136,5 +137,6 @@
                 
     
 </body>
+
 </html>
 

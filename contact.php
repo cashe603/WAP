@@ -37,8 +37,7 @@ if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
 	}
 ?>
 
-
-<DOCTYPE HTML!>
+<!DOCTYPE html>
 
 <html>
   <head>
@@ -50,7 +49,7 @@ if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
   
   <script src = "js/jquery2.js"></script>
   <script src = "js/bootstrap.min.js"></script>
-  <script src = "main.js?ts=<?=time()?>&quot;"></script>
+  <script src = "main.js"></script>
      
     
   </head>
@@ -73,9 +72,10 @@ if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
          </ul>
       </div>
 	</div>
-	<p><br/></p>
-	<p><br/></p>
-	<p><br/></p>
+	<p><br></p>
+	<p><br></p>
+	<p><br></p>
+	
 	<form class="form-horizontal" role="form" method="post" action="contact.php" style= "color:red;">
 	<div class="form-group">
 		<label for="name" class="col-sm-2 control-label">Name</label>
@@ -121,8 +121,8 @@ if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
 </div>
 </div>
 
-<p><br/></p>
-<p><br/></p>
+<p><br></p>
+<p><br></p>
 
 </div>
                     <div class ="panel-footer"><strong>&copy;2017 Farhan The Bossman</strong></div>
@@ -133,3 +133,4 @@ if (!$errName && !$errEmail && !$errMessage && !$errHuman) {
             </div>                    		
 
 </body>
+</html>
