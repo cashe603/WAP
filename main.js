@@ -50,7 +50,7 @@ $(document).ready(function(){
                 var cid = $(this).attr('cid');
                     $.ajax({
 
-			url		:	"action.php",
+			url		:	"action.php","details.php",
                         method	:	"POST",
                         data	:	{get_selected_Category:1,cat_id:cid},
                         success	:	function(data){
@@ -69,7 +69,7 @@ $(document).ready(function(){
                 var bid = $(this).attr('bid');
                     $.ajax({
 
-			url		:	"action.php",
+			url		:	"action.php","details.php",
                         method	:	"POST",
                         data	:{selectBrand:1,brand_id:bid},
                         success	:	function(data){

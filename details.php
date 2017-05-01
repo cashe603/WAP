@@ -1,6 +1,10 @@
 <?php
 session_start();
-if(isset($_SESSION["uid"])){header("location:profile.php");}?>
+
+require_once("config.php");
+
+
+?>
 <!DOCTYPE HTML>
 <html>
 
@@ -17,6 +21,8 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
   
   <link href='http://fonts.googleapis.com/css?family=Montserrat:500' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:600' rel='stylesheet' type='text/css'>
+  
   <style>
 
 			@media screen and (max-width:720px){
@@ -46,30 +52,48 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
             <li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-            
-            <li style="width:300px;left:10px;top:10px"><input type ="text" class="form-control" id="search" placeholder="Tap/Click to Search"></li>
-            <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
-        
-        </ul>
+             </ul>
         
         <ul class ="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
+            <li><a href="cart.php" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
                 <div class="dropdown-menu" style="width:300px;">
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-3">Id</div>
+                                <div class="col-md-3">Serial</div>
                                 <div class="col-md-3">Image</div>
                                 <div class="col-md-3">Name</div>
                                 <div class="col-md-3">Price</div>
                             </div>
                         </div>    
-                        <div class="panel-body"></div>
-                        <div class="panel-footer"></div>
-                    </div>
+                        <div class="panel-body">
+                      <div id = "cart_product">
+                       
+                       <div>
+                        
+                        
                 </div>
             </li>    
                 
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+            <?php if(isset($_SESSION["uid"])){ 
+            echo "Hi !,".$_SESSION["name"]. " |Control Panel|"; 
+            echo '</a>
+                <ul class="dropdown-menu">
+                    <li><a href="cart.php" style="text-decoration:none; color:red;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
+                            <li class="divider"></li>
+                                <li><a href="contact.php" style="text-decoration:none; color:red;">Contact Me</a></li>
+                                    
+                                    </ul>
+            </li><li><a href="logout.php" style="bgcolor:text-decoration:none; color:red;"><span class="glyphicon glyphicon-log-out">Logout</a></li>
+                                        
+            </ul>';
+            
+            
+            }
+            else{
+            echo"Hi Guest!";
+            echo '
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span>Log In</a>
                 <ul class="dropdown-menu">
                     <div style="width:300px;">
@@ -91,40 +115,85 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
             </ul>
         
       </div>  
+    </div>';
+            }
+            
+            
+            ?>
+        
+      </div>  
     </div>
     
+    
     <p><br/></p>
-    <p><br/></p>
-    <p><br/></p>
+   
     <div class="container-fluid">
 		<div class="row">
-			<div class="col-md-1"></div>
 			<div class=col-md-2>
-				<div id="get_category" style="font-family: 'Cabin', sans-serif; font-size:16px;">
+				<div>
 				</div>
 				
-				<div id="get_brand" style="font-family: 'Cabin', sans-serif; font-size:16px;">
-				</div>
-                   
             </div>
 
 			<div class="col-md-8">
 
 				<div class="row">
 
-					<div class="col-md-12" id="product_msg">
+					<div class="col-md-6" id="product_msg">
 
 					</div>
 
 				</div>
 
 				<div class="panel panel-info">
+                                        
+					<div class="panel-heading"><h4>Products Details</h4></div>
+					 <a href='index.php' style='margin:5px' class='btn btn-danger btn-sm' role='button' ><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;Go Back</a>
+                                       
 
-					<div class="panel-heading">Products</div>
+					<div class="panel-body" style="font-family: 'Oswald', sans-serif; font-size:16px;">
 
-					<div class="panel-body">
+<?php 
+	if(isset($_GET['pro_id'])){
+	
+	$product_id = $con->real_escape_string($_GET['pro_id']);
+	
+	$query = "SELECT product_id, product_title,product_price,product_desc,product_image FROM products WHERE product_id=?";
+	$stmt = $con->prepare($query);
+	$stmt->bind_param("i",$product_id);
+	$stmt->execute();
+        
+	$result = $stmt->get_result();
+        $num_rows = $result->num_rows;
 
-			                <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
+            if($num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                        
+                $pro_id = $row['product_id'];
+		$pro_title = $row['product_title'];
+		$pro_price = $row['product_price'];
+		$pro_image = $row['product_image'];
+		$pro_desc = $row['product_desc'];
+	
+		echo"
+                            <div class='col-md-6'>
+                                <div class ='panel panel-info'>
+                                    <div class ='panel-heading' style='text-align:center;'><h3>$pro_title</h3></div>
+                                    <div class ='panel-body'></div>
+                                        <img src='product_images/$pro_image' height='380' width='380' />
+                                        </div>
+                                        <div class = 'well well-sm'>$pro_desc</p>
+                                        </div>
+                                    <div class ='panel-heading'></div><h4> $ $pro_price </h4>
+                                        <button p_id = '$pro_id' style ='float:auto;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>";    
+                            
+            }
+	}
+    }
+?>
                             </div>
                            </div>
                     <div class ="panel-footer"><strong>&copy;2017 Farhan The Bossman</strong></div>

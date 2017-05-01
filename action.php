@@ -2,6 +2,7 @@
 session_start();
 include "config.php";
 
+
 function getIp() {
     $ip = $_SERVER['REMOTE_ADDR'];
  
@@ -96,9 +97,12 @@ if(isset($_POST["getProduct"])){
                                     <div class ='panel-heading' style='text-align:center;'>$ptitle</div>
                                     <div class ='panel-body'></div>
                                         <img src='product_images/$pimage' height='215' width='215' />
-                                        <p>$psubdesc</p>
-                                    <div class ='panel-heading'></div><strong>$ $pprice </strong>
-                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button></div>
+                                        <p>$psubdesc <strong>$ $pprice </strong> </p>
+                                    <div class ='panel-heading'></div>
+                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                        <a href='details.php?pro_id=$pid' class='btn btn-danger btn-xs' role='button'>Details</a>
+                                        </div>
+                                        
                                 </div>
                             </div>";    
                             
@@ -171,11 +175,12 @@ if(isset($_POST["selectBrand"])){
 
 if(isset($_POST["search"])){
     $pkeywords = $con->real_escape_string($_POST['pkeywords']);
-    if ($stmt = $con->prepare("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords FROM products WHERE product_keywords LIKE '%$pkeywords%'")){
+    if ($stmt = $con->prepare("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords, product_subdesc FROM products WHERE product_keywords LIKE '%$pkeywords%'")){
 
+    $stmt->bind_param("s", $pkeywords);
     $stmt->execute();
     $stmt->store_result();
-    $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords);
+    $stmt->bind_result($pid, $pcat, $pbrand, $ptitle, $pprice, $pdesc, $pimage, $pkeywords, $psubdesc);
 
     if($stmt->affected_rows > 0){
     
@@ -187,10 +192,12 @@ if(isset($_POST["search"])){
                                     <div class ='panel-heading' style='text-align:center;'>$ptitle</div>
                                     <div class ='panel-body'></div>
                                         <img src='product_images/$pimage' height='300' width='300' />
-                                    </div>
-                                    <div class ='panel-heading'></div>$<b> $pprice </b>
+                                    <p>$psubdesc <strong>$ $pprice </strong> </p>
+                                    <div class ='panel-heading'></div>
                                         <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
-
+                                        <a href='details.php?pro_id=$pid' class='btn btn-danger btn-xs' role='button'>Details</a>
+                                        </div>
+                                        
                                 </div>
                             </div>";    
                             
