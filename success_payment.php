@@ -91,4 +91,5 @@ $cm = $_GET["cm"];
 
 </html>
 
-<?php session_destroy(); ?>
+<?php session_destroy();
+    session_write_close(); ?>

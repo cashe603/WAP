@@ -174,8 +174,9 @@ if(isset($_POST["selectBrand"])){
 
 
 if(isset($_POST["search"])){
-    $pkeywords = $con->real_escape_string($_POST['pkeywords']);
-    if ($stmt = $con->prepare("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords, product_subdesc FROM products WHERE product_keywords LIKE '%$pkeywords%'")){
+    $pkeywords = $_POST['pkeywords'];
+    $pkeywords = '%' . $pkeywords . '%';
+    if ($stmt = $con->prepare("SELECT product_id, product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords, product_subdesc FROM products WHERE product_keywords LIKE ?")){
 
     $stmt->bind_param("s", $pkeywords);
     $stmt->execute();

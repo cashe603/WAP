@@ -156,7 +156,7 @@ require_once("config.php");
 <?php 
 	if(isset($_GET['pro_id'])){
 	
-	$product_id = $con->real_escape_string($_GET['pro_id']);
+	$product_id = intval($_GET['pro_id']);
 	
 	$query = "SELECT product_id, product_title,product_price,product_desc,product_image FROM products WHERE product_id=?";
 	$stmt = $con->prepare($query);
@@ -184,14 +184,16 @@ require_once("config.php");
                                         </div>
                                         <div class = 'well well-sm'>$pro_desc</p>
                                         </div>
-                                    <div class ='panel-heading'></div><h4> $ $pro_price </h4>
-                                        <button p_id = '$pro_id' style ='float:auto;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
+                                    <div class ='panel-heading'></div><h3> $ $pro_price </h3>
+                                        <button p_id = '$pro_id' style ='float:auto;' id='product' class='btn btn-danger btn-sm'>Add to Cart</button>
                                     </div>
                                 </div>
                             </div>";    
                             
             }
 	}
+    }else{
+    echo "No";
     }
 ?>
                             </div>
