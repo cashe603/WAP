@@ -19,9 +19,9 @@ require_once("config.php");
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js"></script>
   
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:500' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Oswald:600' rel='stylesheet' type='text/css'>
+  <link href="Montserrat-Bold.ttf" rel="stylesheet" type="text/css">
+  <link href="Oswald-Bold.ttf" rel="stylesheet" type="text/css">
+  <link href="Cabin-MediumItalic-TTF.ttf" rel="stylesheet" type="text/css">
   
   <style>
 
@@ -145,13 +145,13 @@ require_once("config.php");
 
 				</div>
 
-				<div class="panel panel-info">
+				<div class="panel panel-info" style="font-family: 'Cabin', sans-serif; font-size:16px;">
                                         
 					<div class="panel-heading"><h4>Products Details</h4></div>
 					 <a href='index.php' style='margin:5px' class='btn btn-danger btn-sm' role='button' ><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;Go Back</a>
                                        
 
-					<div class="panel-body" style="font-family: 'Oswald', sans-serif; font-size:16px;">
+					<div class="panel-body" style="font-family: 'Cabin', sans-serif; font-size:16px;">
 
 <?php 
 	if(isset($_GET['pro_id'])){

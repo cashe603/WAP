@@ -15,8 +15,10 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js"></script>
   
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:500' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
+  <link href="Montserrat-Bold.ttf" rel="stylesheet" type="text/css">
+  <link href="Oswald-Regular.ttf" rel="stylesheet" type="text/css">
+  <link href="Cabin-Regular-TTF.ttf" rel="stylesheet" type="text/css">
+  
   <style>
 
 			@media screen and (max-width:720px){
@@ -100,10 +102,10 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class=col-md-2>
-				<div id="get_category" style="font-family: 'Cabin', sans-serif; font-size:16px;">
+				<div id="get_category" style="font-family: 'Oswald', sans-serif; font-size:16px;">
 				</div>
 				
-				<div id="get_brand" style="font-family: 'Cabin', sans-serif; font-size:16px;">
+				<div id="get_brand" style="font-family: 'Oswald', sans-serif; font-size:16px;">
 				</div>
                    
             </div>

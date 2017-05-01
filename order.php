@@ -17,8 +17,9 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
   <script src = "main.js"></script>
   
   
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
+  <link href="Montserrat-Bold.ttf" rel="stylesheet" type="text/css">
+  <link href="Oswald-Regular.ttf" rel="stylesheet" type="text/css">
+  <link href="Cabin-MediumItalic-TTF.ttf" rel="stylesheet" type="text/css">
   
  <style>
 			table tr td {padding:10px; font-family:Montserrat;}
