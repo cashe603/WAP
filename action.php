@@ -93,14 +93,12 @@ if(isset($_POST["getProduct"])){
                             echo"
                             <div class='col-md-4'>
                                 <div class ='panel panel-info'>
-                                    <div class ='panel-heading'>$ptitle</div>
+                                    <div class ='panel-heading' style='text-align:center;'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='200' width='200' />
+                                        <img src='product_images/$pimage' height='215' width='215' />
                                         <p>$psubdesc</p>
-                                    </div>    
-                                    <div class ='panel-heading'></div>$ $pprice
-                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
-                                
+                                    <div class ='panel-heading'></div><strong>$ $pprice </strong>
+                                        <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button></div>
                                 </div>
                             </div>";    
                             
@@ -121,7 +119,7 @@ if(isset($_POST["get_selected_Category"])){
                             echo"
                             <div class='col-md-6'>
                                 <div class ='panel panel-info'>
-                                    <div class ='panel-heading'>$ptitle</div>
+                                    <div class ='panel-heading' style='text-align:center;'>$ptitle</div>
                                     <div class ='panel-body'></div>
                                         <img src='product_images/$pimage' height='300' width='320' />
                                         </div>
@@ -153,11 +151,11 @@ if(isset($_POST["selectBrand"])){
                             echo"
                             <div class='col-md-6'>
                                 <div class ='panel panel-info'>
-                                    <div class ='panel-heading'>$ptitle</div>
+                                    <div class ='panel-heading' style='text-align:center;'>$ptitle</div>
                                     <div class ='panel-body'></div>
-                                        <img src='product_images/$pimage' height='250' width='250' />
-                                    </div>
-                                    <div class = 'well well-sm'>$pdesc</div>
+                                        <img src='product_images/$pimage' height='300' width='320' />
+                                        </div>
+                                        <div class = 'well well-sm'>$pdesc</p>
                                     <div class ='panel-heading'></div>$ $pprice
                                         <button p_id = '$pid' style ='float:right;' id='product' class='btn btn-danger btn-xs'>Add to Cart</button>
 
@@ -186,7 +184,7 @@ if(isset($_POST["search"])){
                             echo"
                             <div class='col-md-5'>
                                 <div class ='panel panel-info'>
-                                    <div class ='panel-heading'>$ptitle</div>
+                                    <div class ='panel-heading' style='text-align:center;'>$ptitle</div>
                                     <div class ='panel-body'></div>
                                         <img src='product_images/$pimage' height='300' width='300' />
                                     </div>
