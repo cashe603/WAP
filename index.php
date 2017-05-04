@@ -15,11 +15,10 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js"></script>
   
-  <link href="Montserrat-Bold.ttf" rel="stylesheet" type="text/css">
-  <link href="Oswald-Regular.ttf" rel="stylesheet" type="text/css">
-  <link href="Cabin-Regular-TTF.ttf" rel="stylesheet" type="text/css">
-  
-  <style>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cabin:500"/>  
+<style>
 
 			@media screen and (max-width:720px){
 
@@ -55,23 +54,7 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
         </ul>
         
         <ul class ="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
-                <div class="dropdown-menu" style="width:300px;">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-md-3">Id</div>
-                                <div class="col-md-3">Image</div>
-                                <div class="col-md-3">Name</div>
-                                <div class="col-md-3">Price</div>
-                            </div>
-                        </div>    
-                        <div class="panel-body"></div>
-                        <div class="panel-footer"></div>
-                    </div>
-                </div>
-            </li>    
-                
+               
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span>Log In</a>
                 <ul class="dropdown-menu">
                     <div style="width:300px;">
@@ -87,6 +70,8 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
                                 <a href="reset_pwd.php" style="color:white; list-style:none;">Forgotten Password</a>
                             </div>
                               
+      </div>  
+    </div>
                 </ul>
             </li>    
             <li><a href="customer_registration.php"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
@@ -102,10 +87,10 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class=col-md-2>
-				<div id="get_category" style="font-family: 'Oswald', sans-serif; font-size:16px;">
+				<div id="get_category" style="font-family: 'Oswald', sans-serif; font-size:18px;">
 				</div>
 				
-				<div id="get_brand" style="font-family: 'Oswald', sans-serif; font-size:16px;">
+				<div id="get_brand" style="font-family: 'Oswald', sans-serif; font-size:18px; ">
 				</div>
                    
             </div>
@@ -122,21 +107,21 @@ if(isset($_SESSION["uid"])){header("location:profile.php");}?>
 
 				<div class="panel panel-info">
 
-					<div class="panel-heading">Products</div>
+					<div class="panel-heading" align="center">Gadgets</div>
 
 					<div class="panel-body">
 
-			                <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
+			                <div id="get_product" style="font-family: 'Montserrat', sans-serif; font-size:15px;">
                             </div>
                            </div>
+                        
                     <div class ="panel-footer"><strong>&copy;2017 Farhan The Bossman</strong></div>
                 </div> 
             </div>    
             <div class ="col-md-1"></div>
             </div>
             </div>
-    
-    
+       
 </body>
 
 

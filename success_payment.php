@@ -1,12 +1,11 @@
 <?php
+include_once("config.php");
+
 session_start();
+
 if(!isset($_SESSION["uid"])){header("location:index.php");}
 
-$trx_id = $_GET["tx"];
-$payment_status = $_GET["st"];
-$amt = $_GET["amt"];
-$cc = $_GET["cc"];
-$cm = $_GET["cm"];
+
 ?>
 
 <!DOCTYPE HTML>
@@ -67,9 +66,60 @@ $cm = $_GET["cm"];
 					<div class="panel-body">
 						<h1>Thank You for Shopping at Bossman's!</h1>
 						<hr/>
-						<p> <?php echo $_SESSION["name"]; ?>, your payment was successful. Your transaction id is <strong> <?php echo $trx_id; ?>
-						</strong><br/>
-					</div>
+<?php 
+	
+			// this is about the customer
+			$user = $_SESSION['username'];
+				
+			$c_id =$_SESSION['id']; 
+			$c_email =$_SESSION['email']; 
+			$c_name = $_SESSION['name'];
+			
+			//payment details from paypal
+			
+			$amount = $_GET['amt']; 
+			
+			
+			
+			$trx_id = $_GET['tx']; 
+
+			$payid = NULL;
+			$uid = $_SESSION['uid'];
+			
+			
+
+				
+				//inserting the payment to table 
+				$insert_payment = "INSERT INTO `paypal_payment` (`payment_id`, `u_id`, `amount`, `trx_id`) VALUES (?,?,?,?)";
+				$stmt = $con->prepare($insert_payment);
+				$stmt->bind_param("iiii", $payid, $uid, $amount, $trx_id);
+				$stmt->execute();
+				
+				
+				$oid= NULL;
+				$status = NULL;
+				
+				
+				// inserting the order into table
+				$insert_order = "INSERT INTO `paypal_order` (`order_id`,`u_id`, `trx_id`) VALUES (?, ?, ?)";
+				
+				$stmt = $con->prepare($insert_order);
+				$stmt->bind_param("iii", $oid, $uid, $trx_id );
+				$stmt->execute();
+				
+				//removing the products from cart
+				$empty_cart = "delete from cart";
+				$stmt = $con->prepare($empty_cart);
+				$stmt->execute();
+				
+				
+		
+		echo "<h2>Hi  <b>" . $_SESSION['name']. "</b><br>" . "Your Payment was successful!</h2>";
+		echo "<h3>Your transaction id is";
+		echo $trx_id;
+		echo "</h3>"
+		?>
+			</div>
 					<div class="panel-footer"></div>
 				</div>
 			</div>
@@ -91,5 +141,3 @@ $cm = $_GET["cm"];
 
 </html>
 
-<?php session_destroy();
-    session_write_close(); ?>

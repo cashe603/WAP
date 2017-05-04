@@ -16,11 +16,9 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
   <script src = "js/bootstrap.min.js"></script>
   <script src = "main.js"></script>
   
-  <link href="Montserrat-Bold.ttf" rel="stylesheet" type="text/css">
-  <link href="Oswald-Regular.ttf" rel="stylesheet" type="text/css">
-  <link href="Cabin-Bold-TTF.ttf" rel="stylesheet" type="text/css">
-  
-  
+  <link href="https://fonts.googleapis.com/css?family=Oswald:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cabin:500"/>
   <style>
 
 			@media screen and (max-width:720px){
@@ -99,9 +97,9 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class=col-md-2>
-				<div id="get_category" style="font-family: 'Oswald', sans-serif; font-size:16px;">
+				<div id="get_category" style="font-family: 'Oswald', sans-serif; font-size:18px;">
 				</div>
-				<div id="get_brand" style="font-family: 'Oswald', sans-serif; font-size:16px;">
+				<div id="get_brand" style="font-family: 'Oswald', sans-serif; font-size:18px;">
 				</div>
                     
             </div>  
@@ -113,7 +111,7 @@ if(!isset($_SESSION["uid"])){header("location:index.php");}?>
                 </div>
             </div>
                 <div class="panel panel-info" >
-                    <div class ="panel-heading" >Products</div>
+                    <div class ="panel-heading" align="center" >Products</div>
                         <div class="panel-body">
                             <div id="get_product" style="font-family: 'Montserrat', sans-serif;">
                             </div>

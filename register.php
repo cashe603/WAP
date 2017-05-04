@@ -35,7 +35,7 @@ $zip_preg= "/^\d{5}([\-]?\d{4})?$/";
 		echo "
 			<div class='alert alert-warning'>
 				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-				<b>Username is Invalid..Between 3 to 15 characters, uppercase is not allowed!</b>
+				<b>Username is Invalid.Between 3 to 15 letters, No Uppercase letters!</b>
 			</div>
 		";
 		exit();
@@ -186,4 +186,4 @@ else {
 			";
             
         }    
-    }	
+    }
